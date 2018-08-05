@@ -1,13 +1,17 @@
+// Require dependencies
 var express = require('express'),
 	app = express();
 
-app.set('port', process.env.PORT || 8080);
+// Define port for server to listen on
+app.set('port', process.env.PORT || 3000);
+var port = app.get('port');
 
+// Routes
 app.get('/', (req, res) => {
-	res.send("Welcome to Traverzia!");
+	res.send("Welcome to Traverzia");
 })
 
-var port = app.get('port');
+// Listen
 app.listen(port, () => {
 	console.log(`Server listening on port ${port}`);
 })
