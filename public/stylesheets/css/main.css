@@ -6,3 +6,12 @@ h1 {
 	font-weight: 700;
 	color: #18bc9c;
 }
+
+.gallery {
+	list-style-type: none;
+}
+
+.image-thumbnail {
+	width: 10rem;
+	height: 10rem;
+}

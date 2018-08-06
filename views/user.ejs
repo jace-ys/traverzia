@@ -1,0 +1,8 @@
+<% include partials/header.ejs %>
+	<h2>User: <%= user %></h2>
+	<ul class="gallery">
+		<% for(item of imageData) { %>
+			<li><img class="image-thumbnail" src="<%= item.image_url %>"</li>
+		<% } %>
+	</ul>
+<% include partials/footer.ejs %>
