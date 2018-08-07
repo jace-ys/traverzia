@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/search", (req, res) => {
-	var search = req.query.search;
+	var query = req.query.q;
 	res.render("user", {username: data.user, imageData: data.images});
 })
 
