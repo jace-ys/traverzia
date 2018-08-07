@@ -2,9 +2,22 @@ body {
 	font-family: Montserrat;
 }
 
-h1 {
+h1, h2 {
 	font-weight: 700;
 	color: #18bc9c;
+}
+
+.jumbotron {
+	height: 100vh;
+	margin: 0;
+}
+
+.container {
+	max-width: 90%;
+}
+
+.row {
+	
 }
 
 .gallery {
@@ -12,6 +25,23 @@ h1 {
 }
 
 .image-thumbnail {
-	width: 10rem;
-	height: 10rem;
+	width: 15rem;
+	height: 15rem;
+	padding: 0;
+	float: left;
+}
+
+.btn-primary {
+	background-color: #87CEFA;
+	color: black;
+}
+
+#search-bar {
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+#upload-form {
+	max-width: 400px;
+	margin: 0 auto;
 }

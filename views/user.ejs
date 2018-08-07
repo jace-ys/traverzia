@@ -1,8 +1,20 @@
-<% include partials/header.ejs %>
-	<h2>User: <%= username %></h2>
-	<ul class="gallery">
-		<% for(image of imageData) { %>
-			<li><img class="image-thumbnail" src="<%= image.src %>"</li>
-		<% } %>
-	</ul>
-<% include partials/footer.ejs %>
+<% include templates/header %>
+
+	<div class="container text-center">
+		<h2>User: <%= username %></h2>
+		
+		<div class="row">
+			<% for(image of imageData) { %>
+			<div class="col-4">
+				<img class="image-thumbnail" src="<%= image.img_src %>">
+			</div>
+			<% } %>
+		</div>
+
+		<div class="row mt-4 justify-content-center">
+			<a href="/user/upload" class="btn btn-large btn-primary">Upload new image</a>
+		</div>	
+	</div>
+
+<% include templates/scripts %>
+<% include templates/footer %>
