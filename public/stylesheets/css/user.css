@@ -10,9 +10,13 @@ h5 {
 	color: #000000;
 }
 
-.thumbnail {
-	width: 150px;
-	height: 150px;
-	margin: 0;
+.square {
 	padding: 0;
+}
+
+.location {
+	background-color: #00796B;
+	color: #ffffff;
+	padding: 10px;
+	margin: 0;
 }
