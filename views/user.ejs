@@ -1,6 +1,37 @@
 <% include templates/header %>
-
-	<div class="container text-center">
+<link href="/stylesheets/css/user.css" rel="stylesheet" type="text/css">
+	
+	<div class="container-fluid" id="user">
+		<div class="row">
+			<div class="mx-auto text-center" id="username">
+				<h3>Username: <%= username %></h3>
+				<h5>Bio: My name is Jace!</h5>
+			</div>
+		</div>
+		<% for(var i = 0; i < imageData.length; i+=4) { %>
+		<div class="row">
+			<span class="col-lg-3 text-center thumbnail">
+				<img class="img-fluid" src="<%= imageData[i].img_src %>">
+			</span>
+			<span class="col-lg-3 text-center thumbnail">
+				<img class="img-fluid" src="<%= imageData[i+1].img_src %>">
+			</span>
+			<span class="col-lg-3 text-center thumbnail">
+				<img class="img-fluid" src="<%= imageData[i+2].img_src %>">
+			</span>
+			<span class="col-lg-3 text-center thumbnail">
+				<img class="img-fluid" src="<%= imageData[i+3].img_src %>">
+			</span>
+		</div>
+		<% } %>
+		<div class="row m-4">
+			<div class="mx-auto text-center">
+				<a href="/user/upload" class="btn btn-large btn-outline-primary">Upload image</a>
+			</div>
+		</div>
+	</div>
+				
+	<!-- <div class="container text-center">
 		<h2>User: <%= username %></h2>
 		
 		<div class="row">
@@ -11,10 +42,8 @@
 			<% } %>
 		</div>
 
-		<div class="row mt-4 justify-content-center">
-			<a href="/user/upload" class="btn btn-large btn-primary">Upload new image</a>
-		</div>	
-	</div>
+		
+	</div> -->
 
 <% include templates/scripts %>
 <% include templates/footer %>

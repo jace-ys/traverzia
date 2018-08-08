@@ -1,19 +1,28 @@
 <% include templates/header %>
+<link href="/stylesheets/css/upload.css" rel="stylesheet" type="text/css">
 
-	<div class="container text-center">
-		<h1>Upload new image</h1>
-		<form action="/user" method="POST" id="upload-form">
-			<div class="form-group">
-				<input class="form-control" type="text" name="source" placeholder="Image URL">
+	<div class="container-fluid" id="upload">
+		<div class="row">
+			<div class="text-center">
+				<div class="mx-auto mb-4">
+					<h2>Share your travels!</h2>
+				</div>
+				<form class="mx-auto col-lg-6 col-sm-8 col-12" action="/user" method="POST" id="upload-form">
+					<div class="form-group">
+						<input class="form-control" type="text" name="source" placeholder="Image URL">
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="text" name="location" placeholder="Location">
+					</div>
+					<div class="form-group">
+						<textarea class="form-control" type="text" name="caption" rows="3" placeholder="Caption"></textarea>
+					</div>
+					<div>
+						<button type="submit" class="btn btn-outline-primary btn-lg">Upload <i class="fa fa-upload"></i></button>
+					</div>
+				</form>
 			</div>
-			<div class="form-group">
-				<input class="form-control" type="text" name="location" placeholder="Location">
-			</div>
-			<div class="form-group">
-				<textarea class="form-control" type="text" name="caption" rows="5" placeholder="Caption"></textarea>
-			</div>
-			<button type="submit" class="btn btn-primary btn-lg">Upload <i class="fa fa-upload"></i></button>
-		</form>
+		</div>
 	</div>
 
 <% include templates/scripts %>

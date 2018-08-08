@@ -1,19 +1,26 @@
 <% include templates/header %>
+<link href="/stylesheets/css/home.css" rel="stylesheet" type="text/css">
 
-	<div class="jumbotron jumbotron-fluid text-center">
-		<h1>Welcome to Traverzia</h1>
-		<p>Discover places to visit through the eyes of others!</p>
-		<form class="form-inline my-2 my-lg-0 mx-auto" action="/search" method="GET" class="mt-4">
-			<div id="search-bar">
-				<input class="form-control mr-sm-2" type="text" name="q" placeholder="Search">
-				<button type="submit" class="btn btn-primary my-2 my-sm-0">
-					<i class="fa fa-search"></i>
-				</button>
+	<div class="container-fluid" id="home">
+		<div class="row">
+			<div class="text-center">
+				<div class="mx-auto">
+					<h1>Traverzia</h1>
+					<h5>Discover places to visit through the lenses of others!</h5>
+				</div>
+				<form class="form-inline form-group mt-4" action="/search" method="GET">
+					<div class="input-group mx-auto searchbar col-lg-6 col-sm-8 col-12">
+					  	<input type="text" class="form-control input-control" placeholder="Search">
+					  	<span class="input-group-btn">
+					    	<button class="btn btn-default btn-primary text-white" type="submit" name="q"><i class="fa fa-search"></i></button>
+					  	</span>
+					</div>
+				</form>
+				<div class="text-center mx-auto" id="home-buttons">
+					<a href="/user" class="btn btn-lg btn-outline-primary">Start discovering</a>
+					<a href="/user/upload" class="btn btn-lg btn-outline-primary">Upload image</a>
+				</div>
 			</div>
-		</form>
-		<div class="col-12 mt-4">
-			<a href="/user" class="btn btn-xl btn-primary">Start discovering</a>
-			<a href="/user/upload" class="btn btn-large btn-primary">Upload new image</a>
 		</div>
 	</div>
 

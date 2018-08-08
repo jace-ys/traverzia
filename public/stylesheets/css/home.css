@@ -1,0 +1,26 @@
+h1 {
+	font-size: 4em;
+}
+
+h5 {
+	color: #000000;
+}
+
+#home {
+	display: table;
+	height: 100vh;
+}
+
+#home .row {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#home .searchbar input, #home .searchbar button {
+	border-color: #00796B;
+	border-radius: 0 !important;
+}
+
+#home-buttons a {
+	margin: 7.5px;
+}

@@ -1,47 +1,43 @@
 body {
-	font-family: Montserrat;
+	font-family: Karla;
 }
 
-h1, h2 {
+h1, h2, h3, h4, h5, h6 {
 	font-weight: 700;
-	color: #18bc9c;
+	color: #00796B;
 }
 
-.jumbotron {
-	height: 100vh;
-	margin: 0;
+#nav-logo {
+	font-size: 1.5em;
+	font-weight: 700;
 }
 
-.container {
-	max-width: 90%;
-}
-
-.row {
-	
-}
-
-.gallery {
-	list-style-type: none;
-}
-
-.image-thumbnail {
-	width: 15rem;
-	height: 15rem;
-	padding: 0;
-	float: left;
+#nav-logo img {
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	margin-bottom: 5px;
 }
 
 .btn-primary {
-	background-color: #87CEFA;
-	color: black;
+	background-color: #00796B !important;
+	border-color: #00796B !important;
+	color: #000000;
 }
 
-#search-bar {
-	max-width: 400px;
-	margin: 0 auto;
+.btn-primary:hover {
+	background-color: #18bc9c !important;
+	border-color: #18bc9c !important;
+	color: #000000;
 }
 
-#upload-form {
-	max-width: 400px;
-	margin: 0 auto;
+.btn-outline-primary {
+	border-color: #00796B !important;
+	color: #000000 !important;
 }
+.btn-outline-primary:hover {
+	background-color: #18bc9c !important;
+	border-color: #00796B !important;
+	color: #000000 !important;
+}
+

@@ -1,0 +1,17 @@
+h2 {
+	font-size: 2.5em;
+}
+
+#upload {
+	display: table;
+	height: 100vh;
+}
+
+#upload .row {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.form-group input, .form-group textarea {
+	border-color: #00796B;
+}
