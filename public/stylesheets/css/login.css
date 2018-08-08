@@ -1,10 +1,10 @@
+h2 {
+	font-size: 2.5em;
+}
+
 #login h6 {
 	font-weight: 400;
 	color: #000000;
-}
-
-#login #sign-up-link {
-	
 }
 
 #login #sign-up-link:hover {

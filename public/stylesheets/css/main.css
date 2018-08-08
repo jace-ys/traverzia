@@ -49,6 +49,10 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 0 !important;
 }
 
+.form-group input, .form-group textarea {
+	border-color: #00796B;
+}
+
 .btn-primary {
 	background-color: #00796B !important;
 	border-color: #00796B !important;
