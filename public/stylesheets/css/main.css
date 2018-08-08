@@ -1,5 +1,6 @@
 body {
 	font-family: Karla;
+	overflow-y: scroll;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -15,8 +16,37 @@ h1, h2, h3, h4, h5, h6 {
 #nav-logo img {
 	width: 40px;
 	height: 40px;
-	margin-right: 10px;
-	margin-bottom: 5px;
+	margin-bottom: 3px;
+}
+
+#common-nav input {
+	border-color: #FFFFFF;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    height: 38px;
+	font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 5px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #26A69A;
+}
+
+.container-fluid {
+	display: table;
+	height: 100vh;
+}
+
+.container-fluid .row {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.searchbar input, .searchbar button {
+	border-color: #00796B;
+	border-radius: 0 !important;
 }
 
 .btn-primary {
@@ -26,8 +56,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary:hover {
-	background-color: #18bc9c !important;
-	border-color: #18bc9c !important;
+	background-color: #26A69A !important;
+	border-color: #26A69A !important;
 	color: #000000;
 }
 
@@ -36,8 +66,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: #000000 !important;
 }
 .btn-outline-primary:hover {
-	background-color: #18bc9c !important;
+	background-color: #26A69A !important;
 	border-color: #00796B !important;
 	color: #000000 !important;
 }
-

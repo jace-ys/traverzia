@@ -1,0 +1,27 @@
+<% include templates/header %>
+<link href="/stylesheets/css/login.css" rel="stylesheet" type="text/css">
+
+	<div class="container-fluid" id="login">
+		<div class="row">
+			<div class="text-center">
+				<div class="mx-auto mb-4">
+					<h2>Login</h2>
+					<h6>New to Traverzia? <a href="/signup" id="sign-up-link">Sign up!</a></h6>
+				</div>
+				<form class="mx-auto col-lg-6 col-sm-8 col-12" action="/login" method="POST" id="login-form">
+					<div class="form-group">
+						<input class="form-control" type="text" name="username" placeholder="Username">
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="password" name="password" placeholder="Password">
+					</div>
+					<div>
+						<button type="submit" class="btn btn-outline-primary btn-lg">Login <i class="fa fa-arrow-alt-circle-right"></i></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<% include templates/scripts %>
+<% include templates/footer %>

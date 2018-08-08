@@ -1,22 +1,43 @@
-#user {
-	height: 100vh;
+#user-header {
+	display: table;
+	margin-top: 72px;
+	width: 100%;
 }
 
-#username {
-	margin-top: 6em;
+#user-meta {
+	display: table-cell;
+	vertical-align: middle;
+	height: 200px;
+	background-color: #B2DFDB;
 }
 
 h5 {
 	color: #000000;
 }
 
-.square {
+.container-fluid h5 {
+	color: #000000;
+	font-weight: 400;
+}
+
+.img-thumbnail {
+	border: none;
+	border-radius: none;
+	margin: 0;
 	padding: 0;
 }
 
+.img-fluid {
+	margin: 0;
+}
+
+.square {
+	padding: 0;
+	margin: 0;
+}
+
 .location {
-	background-color: #00796B;
-	color: #ffffff;
+	color: #000000;
 	padding: 10px;
 	margin: 0;
 }

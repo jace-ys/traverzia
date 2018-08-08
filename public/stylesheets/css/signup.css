@@ -1,0 +1,12 @@
+#signup h6 {
+	font-weight: 400;
+	color: #000000;
+}
+
+#signup #login-link {
+	
+}
+
+#signup #login-link:hover {
+	color: #26A69A;
+}

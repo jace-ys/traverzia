@@ -1,19 +1,27 @@
 <% include templates/header %>
 <link href="/stylesheets/css/user.css" rel="stylesheet" type="text/css">
 	
-	<div class="container-fluid" id="user">
-		<div class="row">
-			<div class="mx-auto text-center" id="username">
-				<h3>Username: <%= username %></h3>
-				<h5>Bio: My name is Jace!</h5>
-			</div>
+	<div id="user-header">
+		<div class="mx-auto text-center" id="user-meta">
+			<h3>Username: <%= username %></h3>
+			<h5>Bio: My name is Jace!</h5>
 		</div>
-		<div class="container">
-			<div class="row gallery mt-4">
+	</div>
+	
+	<div class="container mt-4">
+		<div class="col-12 text-center">
+			<h5>My Travelogue</h5>
+		</div>
+		<div class="container mt-4" id="travelogue">
+			<div class="row gallery">
 			<% for(var i = 0; i < imageData.length; i++) { %>
-				<span class="col-lg-3 col-sm-6 text-center square">
-					<img class="img-fluid" src="<%= imageData[i].img_src %>">
-					<p class="location"><%= imageData[i].img_location %></p>
+				<span class="col-lg-3 col-sm-6 col-12 text-center square">
+					<div>
+						<img class="img-fluid" src="<%= imageData[i].img_src %>">
+						<div class="figure-caption">
+							<p class="location"><%= imageData[i].img_location %></p>
+						</div>
+					</div>
 				</span>
 			<% } %>
 			</div>
@@ -24,6 +32,18 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		function updateWindow(){
+		    document.body.style.paddingLeft = (window.innerWidth - document.body.clientWidth);
+		    document.body.onclick = function(){
+		            document.body.style.paddingLeft = (window.innerWidth - document.body.clientWidth);
+		    }
+		}
+		window.onload = updateWindow();
+		window.addEventListener("resize", updateWindow());
+		updateWindow();
+	</script>
 
 <% include templates/scripts %>
 <% include templates/footer %>

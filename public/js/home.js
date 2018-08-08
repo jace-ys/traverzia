@@ -1,1 +1,0 @@
-$("#navbar-search").css("display" , "none");

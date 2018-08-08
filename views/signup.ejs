@@ -1,0 +1,27 @@
+<% include templates/header %>
+<link href="/stylesheets/css/signup.css" rel="stylesheet" type="text/css">
+
+	<div class="container-fluid" id="signup">
+		<div class="row">
+			<div class="text-center">
+				<div class="mx-auto mb-4">
+					<h2>Create an account</h2>
+					<h6>Have an account? <a href="/login" id="login-link">Login!</a></h6>
+				</div>
+				<form class="mx-auto col-lg-6 col-sm-8 col-12" action="/signup" method="POST" id="signup-form">
+					<div class="form-group">
+						<input class="form-control" type="text" name="username" placeholder="Username">
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="password" name="password" placeholder="Password">
+					</div>
+					<div>
+						<button type="submit" class="btn btn-outline-primary btn-lg">Sign up! <i class="fa fa-arrow-alt-circle-right"></i></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<% include templates/scripts %>
+<% include templates/footer %>
