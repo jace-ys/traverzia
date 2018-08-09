@@ -5,15 +5,18 @@ var path = require("path"),
 	express = require("express"),
 	app = express();
 
-var data = require("./models/data").data;
-var access = require("./access").access;
-
-var mlab_uri = access.mlab;
-
 // Setup
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+
+// MongoDB Setup
+var access = require("./access").access;
+var mlab_uri = access.mlab;
+mongoose.connect(mlab_uri, {useNewUrlParser: true});
+
+// Data Schemas
+var Image = require("./models/traverziadb");
 
 // Define port for server to listen on
 app.set("port", process.env.PORT || 8080);
@@ -22,57 +25,73 @@ var port = app.get('port');
 // GET routes
 app.get("/", (req, res) => {
 	res.render("home");
-})
+});
 
 app.get("/login", (req, res) => {
 	res.render("login");
-})
+});
 
 app.get("/signup", (req, res) => {
 	res.render("signup");
-})
+});
 
 app.get("/search", (req, res) => {
 	var query = req.query.q;
 	res.render("user", {username: data.user, imageData: data.images});
-})
+});
 
 app.get("/user", (req, res) => {
-	res.render("user", {username: data.user, imageData: data.images});
-})
+	Image.find({}, (err, images) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("user", {username: "Jace", imageData: images});
+		}
+	})
+});
 
 app.get("/user/upload", (req, res) => {
 	res.render("upload");
-})
+});
+
+app.get("/user/:imageID", (req, res) => {
+	res.send("Image Page");
+});
 
 // POST routes
 app.post("/login", (req, res) => {
 	res.redirect("/");
-})
+});
 
 app.post("/signup", (req, res) => {
 	res.redirect("/login");
-})
+});
 
 app.post("/user", (req, res) => {
-	var source = req.body.source;
+	var url = req.body.source;
 	var location = req.body.location;
 	var caption = req.body.caption;
-	var uploadedImage = {img_id: 9, img_src: source, img_location: location, img_caption: "9"};
-	data["images"].push(uploadedImage);
-	res.redirect("/user");
-})
+	var uploadImage = {url: url, location: location, caption: caption};
+	Image.create(uploadImage, (err, upload) => {
+		if(err) {
+			console.log(err);
+			res.redirect("/user");
+		} else {
+			res.redirect("/user");
+		}
+	});
+});
 
 // Handle invalid routes
 app.get("/error", (req, res) => {
 	res.send("404 page not found!");
-})
+});
 
 app.get("*", (req, res) => {
 	res.redirect("/error");
-})
+});
 
 // Listen
 app.listen(port, () => {
 	console.log(`Server listening on port ${port}`);
-})
+});
