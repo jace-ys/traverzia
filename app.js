@@ -4,15 +4,19 @@ var path = require("path"),
 	express = require("express"),
 	app = express();
 
+var data = require("./models/data").data;
+var access = require("./access").access;
+
+var mlab_uri = access.mlab;
+console.log(mlab_uri);
+
 // Setup
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-var data = require("./models/data").data;
-
 // Define port for server to listen on
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 8080);
 var port = app.get('port');
 
 // GET routes
