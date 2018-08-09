@@ -1,6 +1,7 @@
 // Require dependencies
 var path = require("path"),
 	bodyParser = require("body-parser"),
+	mongoose = require("mongoose"),
 	express = require("express"),
 	app = express();
 
@@ -8,7 +9,6 @@ var data = require("./models/data").data;
 var access = require("./access").access;
 
 var mlab_uri = access.mlab;
-console.log(mlab_uri);
 
 // Setup
 app.use(express.static(path.join(__dirname, "public")));
