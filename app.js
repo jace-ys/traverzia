@@ -36,8 +36,19 @@ app.get("/signup", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-	var query = req.query.q;
-	res.render("user", {username: data.user, imageData: data.images});
+	Image.find({}, (err, images) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("user", {username: "Jace", imageData: images});
+		}
+	});
+	//res.render("search");
+});
+
+app.get("/discover", (req, res) => {
+	res.redirect("/user");
+	//res.render("discover");
 });
 
 app.get("/user", (req, res) => {
@@ -55,7 +66,7 @@ app.get("/user/upload", (req, res) => {
 });
 
 app.get("/user/:imageID", (req, res) => {
-	res.send("Image Page");
+	res.render("image");
 });
 
 // POST routes
