@@ -75,7 +75,6 @@ app.post("/user", (req, res) => {
 	Image.create(uploadImage, (err, upload) => {
 		if(err) {
 			console.log(err);
-			res.redirect("/user");
 		} else {
 			res.redirect("/user");
 		}
