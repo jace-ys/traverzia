@@ -15,11 +15,14 @@
 		<div class="container mt-4" id="travelogue">
 			<div class="row gallery">
 			<% for(var i = 0; i < imageData.length; i++) { %>
+				<% var image = imageData[i] %>
 				<span class="col-lg-3 col-sm-6 col-12 text-center square">
 					<div>
-						<img class="img-fluid" src="<%= imageData[i].url %>">
+						<a href="/user/<%= image._id %>">
+							<img class="img-fluid" src="<%= image.url %>">
+						</a>
 						<div class="figure-caption">
-							<p class="location"><%= imageData[i].location %></p>
+							<p class="location"><i class="fa fa-map-marker-alt"></i> <%= image.location %></p>
 						</div>
 					</div>
 				</span>

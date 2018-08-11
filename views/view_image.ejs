@@ -1,0 +1,15 @@
+<% include templates/header %>
+<link href="/stylesheets/css/view_image.css" rel="stylesheet" type="text/css">
+
+	<div class="container-fluid" id="image">
+		<div class="row">
+			<div class="col-lg-4 mx-auto text-center" id="content">
+				<img class="img-fluid" src="<%= image.url %>">
+				<h5><i class="fa fa-map-marker-alt"></i> <%= image.location %></h5>
+				<p><%= image.caption %></p>
+			</div>
+		</div>
+	</div>
+
+<% include templates/scripts %>
+<% include templates/footer %>

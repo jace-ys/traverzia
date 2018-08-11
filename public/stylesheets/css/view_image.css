@@ -1,0 +1,9 @@
+#content {
+	margin-top: 100px;
+	margin-bottom: 40px;
+	padding: 0;
+}
+
+#content .img-fluid {
+	margin-bottom: 20px;
+}

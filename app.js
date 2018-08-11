@@ -66,7 +66,12 @@ app.get("/user/upload", (req, res) => {
 });
 
 app.get("/user/:imageID", (req, res) => {
-	res.render("image");
+	Image.findById(req.params.imageID, (err, resultImage) => {
+		if(err) {
+			console.log(err);
+		}
+		res.render("view_image", {image: resultImage})
+	}); 
 });
 
 // POST routes
