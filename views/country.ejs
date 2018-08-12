@@ -1,26 +1,25 @@
 <% include templates/header %>
-<link href="/stylesheets/css/user.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/css/country.css" rel="stylesheet" type="text/css">
 
 	<div id="user-header">
 		<div class="mx-auto text-center" id="user-meta">
-			<h3><%= username %></h3>
-			<h6>Bio: My name is Jace!</h6>
+			<h3><%= username %>'s travelogues</h3>
+			<h5>Country</h5>
 		</div>
 	</div>
 	
 	<div class="container mt-4 mb-4">
-		<div class="text-center container" id="travelogue">
-			<h6 class="mb-4"><%= username %>'s travelogues</h6>
+		<div class="text-center container mt-4" id="country">
 			<div class="row gallery">
 			<% for(var i = 0; i < imageData.length; i++) { %>
 				<% var image = imageData[i] %>
 				<span class="col-lg-3 col-sm-6 col-12 text-center square">
 					<div>
-						<a href="/user/country">
+						<a href="/user/country/<%= image._id %>">
 							<img class="img-fluid" src="<%= image.source %>">
 						</a>
 						<div class="figure-caption">
-							<p class="location"><%= image.location %></p>
+							<p class="location"><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></p>
 						</div>
 					</div>
 				</span>

@@ -30,22 +30,6 @@ app.get("/", (req, res) => {
 	res.render("home");
 });
 
-app.get("/search", (req, res) => {
-	Image.find({}, (err, images) => {
-		if(err) {
-			res.redirect("/error");
-		} else {
-			res.render("user", {username: "Jace", imageData: images});
-		}
-	});
-	//res.render("search");
-});
-
-app.get("/discover", (req, res) => {
-	res.redirect("/user");
-	//res.render("discover");
-});
-
 // Route: Sign up
 app.get("/signup", (req, res) => {
 	res.render("signup");
@@ -64,7 +48,26 @@ app.post("/login", (req, res) => {
 	res.redirect("/");
 });
 
-// Route: Upload image
+
+// Route: Search
+app.get("/search", (req, res) => {
+	Image.find({}, (err, images) => {
+		if(err) {
+			res.redirect("/error");
+		} else {
+			res.render("user", {username: "Jace", imageData: images});
+		}
+	});
+	//res.render("search");
+});
+
+// Route: Discover
+app.get("/discover", (req, res) => {
+	res.redirect("/user");
+	//res.render("discover");
+});
+
+// Route: View user
 app.get("/user", (req, res) => {
 	Image.find({}, (err, images) => {
 		if(err) {
@@ -75,6 +78,7 @@ app.get("/user", (req, res) => {
 	})
 });
 
+// Route: Upload image
 app.get("/user/upload", (req, res) => {
 	res.render("upload");
 });
@@ -89,33 +93,56 @@ app.post("/user", (req, res) => {
 	});
 });
 
-// Route: Edit post
-app.get("/user/:imageID", (req, res) => {
+
+// Route: View countries
+app.get("/user/:country", (req, res) => {
+	Image.find({}, (err, images) => {
+		if(err) {
+			res.redirect("/error");
+		} else {
+			res.render("country", {username: "Jace", imageData: images});
+		}
+	})
+})
+
+// Route: View post
+app.get("/user/:country/:imageID", (req, res) => {
 	Image.findById(req.params.imageID, (err, resultImage) => {
 		if(err) {
-			res.redirect("/user");
+			res.redirect("/user/country");
 		} else {
 			res.render("view_image", {image: resultImage});
 		}
 	}); 
 });
 
-app.get("/user/:imageID/edit", (req, res) => {
+// Route: Edit post
+app.get("/user/:country/:imageID/edit", (req, res) => {
 	Image.findById(req.params.imageID, (err, resultImage) => {
-		if(err){
-			res.redirect(`/user/${req.params.imageID}`);
+		if(err) {
+			console.log(err);
 		} else {
 			res.render("edit_post", {image: resultImage});
 		}
 	});
 });
 
-app.put("/user/:imageID", (req, res) => {
+app.put("/user/:country/:imageID", (req, res) => {
 	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
-		if(err){
-			res.redirect(`/user/${req.params.imageID}/edit`);
+		if(err) {
+			console.log(err);
 		} else {
-			res.redirect(`/user/${req.params.imageID}`);
+			res.redirect(`/user/country/${req.params.imageID}`);
+		}
+	});
+});
+
+app.delete("/user/:country/:imageID", (req, res) => {
+	Image.findByIdAndRemove(req.params.imageID, (err) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect("/user/country");
 		}
 	});
 });

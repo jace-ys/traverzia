@@ -11,12 +11,8 @@
 	background-color: #A7FFEB;
 }
 
-h6 {
+h5 {
 	color: #000000;
-}
-
-#travelogue h6 {
-	font-size: 1.2em;
 }
 
 .img-thumbnail {
@@ -36,8 +32,6 @@ h6 {
 }
 
 .location {
-	font-size: 1.2em;
-	font-weight: 700;
 	color: #000000;
 	padding: 10px;
 	margin: 0;

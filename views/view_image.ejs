@@ -8,9 +8,12 @@
 					<img class="img-fluid" src="<%= image.source %>">
 				</div>
 				<div class="col-lg-8 col-md-6 col-12" id="text-panel">
+					<div>
+						<a href="/user/country/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
+						<a href="/user/country" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
+					</div>
 					<div class="text-center">
-						<a href="/user/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
-						<h6>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
+						<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
 						<p>Caption: <%= image.caption %></p>
 						<p>Posted on: <%= image.created.toDateString().slice(4,15) %></p>
 					</div>

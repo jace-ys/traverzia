@@ -8,13 +8,16 @@ var ImageSchema = new mongoose.Schema({
 });
 
 var UserSchema = new mongoose.Schema({
-	userDetails: {
+	profile: {
 		username: String,
 		email: String,
 		password: String,
 		bio: String
 	},
-	content: [ImageSchema]
+	countries: [{
+		country: String,
+		images: [ImageSchema]
+	}]
 });
 
 exports.imageSchema = mongoose.model("Image", ImageSchema);

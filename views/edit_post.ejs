@@ -8,12 +8,16 @@
 					<img class="img-fluid" src="<%= image.source %>">
 				</div>
 				<div class="col-lg-8 col-md-6 col-12" id="text-panel">
-					<a href="/user/<%= image._id %>" title="Cancel edit"><i class="fa fa-times"></i></a>
-					<a href="" title="Delete post"><i class="fa fa-trash-alt"></i></a>
-					<div class="mx-auto mb-4 text-center">
-						<h2>&nbsp;&nbsp;&nbsp;&nbsp;Edit post</h2>
+					<div>
+						<a href="/user/country/<%= image._id %>" title="Cancel edit"><i class="fa fa-times"></i></a>
+						<form action="/user/country/<%= image._id %>?_method=DELETE" method="POST" id="delete-button">
+    						<a href="javascript:;" onclick="$('#delete-button').submit();" title="Delete post"><i class="fa fa-trash-alt"></i></a>
+						</form>
 					</div>
-					<form action="/user/<%= image._id %>?_method=PUT" class="mx-auto col-12" id="edit-form" method="POST">
+					<div class="mx-auto mb-4 text-center">
+						<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit post</h2>
+					</div>
+					<form action="/user/country/<%= image._id %>?_method=PUT" class="mx-auto col-12" id="edit-form" method="POST">
 						<div class="form-group">
 							<label for="image[location]">Location</label>
 							<input class="form-control" type="text" name="image[location]" value="<%= image.location %>">

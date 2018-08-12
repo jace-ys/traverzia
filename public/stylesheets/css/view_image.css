@@ -23,12 +23,13 @@
 	padding: 20px;
 }
 
-#image #text-panel .fa-edit {
+.fa-edit, .fa-arrow-alt-circle-left {
 	float: right;
 	color: rgb(169,169,169,0.6);
+	margin: 0 5px;
 }
 
-#image #text-panel .fa-edit:hover {
+#image #text-panel .fa-edit:hover, #image #text-panel .fa-arrow-alt-circle-left:hover {
 	color: #00796B;
 }
 
