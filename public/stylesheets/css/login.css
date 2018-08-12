@@ -10,3 +10,7 @@ h2 {
 #login #sign-up-link:hover {
 	color: #26A69A;
 }
+
+#login #login-form #user {
+	text-align: left !important;
+}

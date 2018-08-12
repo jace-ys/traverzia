@@ -8,7 +8,7 @@
 	display: table-cell;
 	vertical-align: middle;
 	height: 200px;
-	background-color: #B2DFDB;
+	background-color: #A7FFEB;
 }
 
 h5 {
@@ -40,4 +40,14 @@ h5 {
 	color: #000000;
 	padding: 10px;
 	margin: 0;
+}
+
+#image-modal {
+	margin-top: 100px;
+	margin-bottom: 40px;
+	padding: 0;
+}
+
+#image-modal .img-fluid {
+	margin-bottom: 20px;
 }

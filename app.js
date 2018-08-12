@@ -1,6 +1,7 @@
 // Require dependencies
 var path = require("path"),
 	bodyParser = require("body-parser"),
+	methodOverride = require("method-override"),
 	mongoose = require("mongoose"),
 	express = require("express"),
 	app = express();
@@ -8,15 +9,17 @@ var path = require("path"),
 // Setup
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 // MongoDB Setup
-var access = require("./access").access;
-var mlab_uri = access.mlab;
+var mlab_uri = require("./access").access.mlab;
 mongoose.connect(mlab_uri, {useNewUrlParser: true});
 
 // Data Schemas
-var Image = require("./models/traverziadb");
+var Models = require("./models/traverziadb");
+var Image = Models.imageSchema;
+var User = Models.userSchema;
 
 // Define port for server to listen on
 app.set("port", process.env.PORT || 8080);
@@ -38,7 +41,7 @@ app.get("/signup", (req, res) => {
 app.get("/search", (req, res) => {
 	Image.find({}, (err, images) => {
 		if(err) {
-			console.log(err);
+			res.redirect("/error");
 		} else {
 			res.render("user", {username: "Jace", imageData: images});
 		}
@@ -54,7 +57,7 @@ app.get("/discover", (req, res) => {
 app.get("/user", (req, res) => {
 	Image.find({}, (err, images) => {
 		if(err) {
-			console.log(err);
+			res.redirect("/error");
 		} else {
 			res.render("user", {username: "Jace", imageData: images});
 		}
@@ -68,10 +71,21 @@ app.get("/user/upload", (req, res) => {
 app.get("/user/:imageID", (req, res) => {
 	Image.findById(req.params.imageID, (err, resultImage) => {
 		if(err) {
-			console.log(err);
+			res.redirect("/user");
+		} else {
+			res.render("view_image", {image: resultImage});
 		}
-		res.render("view_image", {image: resultImage})
 	}); 
+});
+
+app.get("/user/:imageID/edit", (req, res) => {
+	Image.findById(req.params.imageID, (err, resultImage) => {
+		if(err){
+			res.redirect(`/user/${req.params.imageID}`);
+		} else {
+			res.render("edit_post", {image: resultImage});
+		}
+	});
 });
 
 // POST routes
@@ -84,15 +98,22 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
-	var url = req.body.source;
-	var location = req.body.location;
-	var caption = req.body.caption;
-	var uploadImage = {url: url, location: location, caption: caption};
-	Image.create(uploadImage, (err, upload) => {
+	Image.create(req.body.image, (err, upload) => {
 		if(err) {
-			console.log(err);
+			res.redirect("/user/upload");
 		} else {
 			res.redirect("/user");
+		}
+	});
+});
+
+// PUT routes
+app.put("/user/:imageID", (req, res) => {
+	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
+		if(err){
+			res.redirect(`/user/${req.params.imageID}/edit`);
+		} else {
+			res.redirect(`/user/${req.params.imageID}`);
 		}
 	});
 });

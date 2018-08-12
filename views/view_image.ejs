@@ -1,12 +1,31 @@
 <% include templates/header %>
 <link href="/stylesheets/css/view_image.css" rel="stylesheet" type="text/css">
 
-	<div class="container-fluid" id="image">
+	<div class="container" id="image">
 		<div class="row">
-			<div class="col-lg-4 mx-auto text-center" id="content">
-				<img class="img-fluid" src="<%= image.url %>">
-				<h5><i class="fa fa-map-marker-alt"></i> <%= image.location %></h5>
-				<p><%= image.caption %></p>
+			<div class="" id="content">
+				<div class="col-lg-4 col-md-6 col-12" id="image-panel">
+					<img class="img-fluid" src="<%= image.source %>">
+				</div>
+				<div class="col-lg-8 col-md-6 col-12" id="text-panel">
+					<div class="text-center">
+						<a href="/user/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
+						<h6>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
+						<p>Caption: <%= image.caption %></p>
+						<p>Posted on: <%= image.created.toDateString().slice(4,15) %></p>
+					</div>
+					<div class="container" id="comments">
+						<div><h6>Comments</h6></div>
+						<p>User 1: Comment</p>
+						<p>User 2: Comment</p>
+						<form class="mt-2">
+							<div class="form-group">
+								<textarea class="form-control col-12" type="text" name="comment" placeholder="Write a comment"></textarea>
+							</div>
+							<button class="col-12 btn btn-primary text-white" type="submit">Add new comment&nbsp;&nbsp;<i class="fa fa-comment"></i></button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

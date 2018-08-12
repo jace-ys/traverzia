@@ -1,10 +1,10 @@
-#image {
+#edit-image {
 	margin-top: 92px;
 	margin-bottom: 10px;
 	padding: 0;
 }
 
-#image .row {
+#edit-image .row {
 	display: block;
 	margin: 0;
 }
@@ -15,28 +15,29 @@
 	}
 }
 
-#image #image-panel {
+#edit-image #image-panel {
 	padding: 0;
 }
 
-#image #text-panel {
+#edit-image #text-panel {
 	padding: 20px;
 }
 
-#image #text-panel .fa-edit {
+#edit-image #text-panel .fa-trash-alt, #edit-image #text-panel .fa-times {
 	float: right;
 	color: rgb(169,169,169,0.6);
+	margin: 0 5px;
 }
 
-#image #text-panel .fa-edit:hover {
-	color: #00796B;
+#edit-image #text-panel .fa-trash-alt:hover, #edit-image #text-panel .fa-times:hover {
+	color: #DC143C;
 }
 
-#image #text-panel h6 {
+#edit-image #text-panel h6 {
 	color: #000000;
 }
 
-#image #text-panel p {
+#edit-image #text-panel p {
 	margin: 0;
 }
 
