@@ -12,6 +12,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
+// Define port for server to listen on
+app.set("port", process.env.PORT || 8080);
+var port = app.get('port');
+
 // MongoDB Setup
 var mlab_uri = require("./access").access.mlab;
 mongoose.connect(mlab_uri, {useNewUrlParser: true});
@@ -21,21 +25,9 @@ var Models = require("./models/traverziadb");
 var Image = Models.imageSchema;
 var User = Models.userSchema;
 
-// Define port for server to listen on
-app.set("port", process.env.PORT || 8080);
-var port = app.get('port');
-
-// GET routes
+// Routes
 app.get("/", (req, res) => {
 	res.render("home");
-});
-
-app.get("/login", (req, res) => {
-	res.render("login");
-});
-
-app.get("/signup", (req, res) => {
-	res.render("signup");
 });
 
 app.get("/search", (req, res) => {
@@ -54,6 +46,25 @@ app.get("/discover", (req, res) => {
 	//res.render("discover");
 });
 
+// Route: Sign up
+app.get("/signup", (req, res) => {
+	res.render("signup");
+});
+
+app.post("/signup", (req, res) => {
+	res.redirect("/login");
+});
+
+// Route: Login
+app.get("/login", (req, res) => {
+	res.render("login");
+});
+
+app.post("/login", (req, res) => {
+	res.redirect("/");
+});
+
+// Route: Upload image
 app.get("/user", (req, res) => {
 	Image.find({}, (err, images) => {
 		if(err) {
@@ -68,6 +79,17 @@ app.get("/user/upload", (req, res) => {
 	res.render("upload");
 });
 
+app.post("/user", (req, res) => {
+	Image.create(req.body.image, (err, upload) => {
+		if(err) {
+			res.redirect("/user/upload");
+		} else {
+			res.redirect("/user");
+		}
+	});
+});
+
+// Route: Edit post
 app.get("/user/:imageID", (req, res) => {
 	Image.findById(req.params.imageID, (err, resultImage) => {
 		if(err) {
@@ -88,26 +110,6 @@ app.get("/user/:imageID/edit", (req, res) => {
 	});
 });
 
-// POST routes
-app.post("/login", (req, res) => {
-	res.redirect("/");
-});
-
-app.post("/signup", (req, res) => {
-	res.redirect("/login");
-});
-
-app.post("/user", (req, res) => {
-	Image.create(req.body.image, (err, upload) => {
-		if(err) {
-			res.redirect("/user/upload");
-		} else {
-			res.redirect("/user");
-		}
-	});
-});
-
-// PUT routes
 app.put("/user/:imageID", (req, res) => {
 	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
 		if(err){
