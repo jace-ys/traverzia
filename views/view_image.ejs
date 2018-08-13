@@ -18,8 +18,7 @@
 				</div>
 				<div class="container" id="comments-section">
 					<h6>Comments</h6>
-					<div id="comments">
-						<% include comments %>
+					<div id="comments"><% include comments %>
 					</div>
 					<form action="/user/country/<%= image._id %>/comment" method="POST" class="mt-2" id="comment-form">
 						<div class="form-group">
