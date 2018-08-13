@@ -7,17 +7,17 @@ var ImageSchema = new mongoose.Schema({
 	created: {type: Date, default: Date.now}
 });
 
+var CountrySchema = new mongoose.Schema({
+	country: String,
+	images: [ImageSchema]
+});
+
 var UserSchema = new mongoose.Schema({
-	profile: {
-		username: String,
-		email: String,
-		password: String,
-		bio: String
-	},
-	countries: [{
-		country: String,
-		images: [ImageSchema]
-	}]
+	username: String,
+	email: String,
+	password: String,
+	bio: String
+	countries: [CountrySchema]
 });
 
 exports.imageSchema = mongoose.model("Image", ImageSchema);
