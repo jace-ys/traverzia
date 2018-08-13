@@ -2,6 +2,7 @@
 <link href="/stylesheets/css/country.css" rel="stylesheet" type="text/css">
 
 	<div id="user-header">
+		<a href="/user"><i class="fa fa-arrow-alt-circle-left"></i></a>
 		<div class="mx-auto text-center" id="user-meta">
 			<h3><%= username %>'s travelogues</h3>
 			<h5>Country</h5>
@@ -9,7 +10,7 @@
 	</div>
 	
 	<div class="container mt-4 mb-4">
-		<div class="text-center container mt-4" id="country">
+		<div class="text-center container" id="country">
 			<div class="row gallery">
 			<% for(var i = 0; i < imageData.length; i++) { %>
 				<% var image = imageData[i] %>
