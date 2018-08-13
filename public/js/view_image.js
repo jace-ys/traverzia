@@ -10,8 +10,8 @@ $("#comment-form").on("submit", (event) => {
         url: endpoint,
         data: newComment,
         success: function(res) {
-        	$("#comment-form textarea").val("");
             $("#comments").html(res);
+            $("#comment-form textarea").val("");
         },
         error: function(res) {
             console.log("Failed to submit comment");
