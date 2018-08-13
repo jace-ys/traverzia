@@ -124,16 +124,20 @@ app.post("/user/:country/:imageID/comment", (req, res) => {
 			console.log(err);
 		} else {
 			Comment.create(req.body, (err, comment) => {
-				image.comments.push(comment);
-				image.save((err) => {
-					if(err) {
-						console.log(err);
-					} else {
-						Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
-							res.render("comments", {image: image});
-						})
-					}
-				});
+				if(err) {
+					console.log(err);
+				} else {
+					image.comments.push(comment);
+					image.save((err) => {
+						if(err) {
+							console.log(err);
+						} else {
+							Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
+								res.render("comments", {image: image});
+							});
+						}
+					});
+				}
 			});
 		}
 	});
