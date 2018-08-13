@@ -21,8 +21,8 @@ var mlab_uri = require("./access").access.mlab;
 mongoose.connect(mlab_uri, {useNewUrlParser: true});
 
 // Data Schemas
-var Models = require("./models/traverziadb");
-var Image = Models.imageSchema;
+var Models = require("./models/users");
+var Image = require("./models/images");
 var User = Models.userSchema;
 
 // Routes
