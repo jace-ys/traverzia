@@ -131,7 +131,7 @@ app.post("/user/:country/:imageID/comment", (req, res) => {
 					} else {
 						Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
 							res.render("comments", {image: image});
-						})
+						});
 					}
 				});
 			});
