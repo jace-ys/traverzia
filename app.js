@@ -85,11 +85,11 @@ app.get("/user/upload", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
-	Image.create(req.body.image, (err, upload) => {
+	Image.create(req.body, (err, upload) => {
 		if(err) {
 			res.redirect("/user/upload");
 		} else {
-			res.redirect("/user");
+			res.send({redirect_url: "/user"});
 		}
 	});
 });
