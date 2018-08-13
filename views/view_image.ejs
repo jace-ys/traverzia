@@ -3,36 +3,33 @@
 
 	<div class="container" id="image">
 		<div class="row">
-			<div class="" id="content">
-				<div class="col-lg-4 col-md-6 col-12" id="image-panel">
-					<img class="img-fluid" src="<%= image.source %>">
+			<div class="col-lg-4 col-12 text-center" id="image-panel">
+				<img class="img-fluid" src="<%= image.source %>">
+			</div>
+			<div class="col-lg-8 col-12" id="text-panel">
+				<div>
+					<a href="/user/country/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
+					<a href="/user/country" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
 				</div>
-				<div class="col-lg-8 col-md-6 col-12" id="text-panel">
-					<div>
-						<a href="/user/country/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
-						<a href="/user/country" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
-					</div>
-					<div class="text-center">
-						<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
-						<p>Caption: <%= image.caption %></p>
-						<p>Posted on: <%= image.created.toDateString().slice(4,15) %></p>
-					</div>
-					<div class="container" id="comments">
-						<div><h6>Comments</h6></div>
-						<p>User 1: Comment</p>
-						<p>User 2: Comment</p>
-						<p>User 3: Comment</p>
-						<p>User 4: Comment</p>
-						<p>User 5: Comment</p>
-						<p>User 6: Comment</p>
-						<p>User 7: Comment</p>
-						<form class="mt-2">
-							<div class="form-group">
-								<textarea class="form-control col-12" type="text" name="comment" placeholder="Write a comment"></textarea>
-							</div>
-							<button class="col-12 btn btn-primary text-white" type="submit">Add new comment&nbsp;&nbsp;<i class="fa fa-comment"></i></button>
-						</form>
-					</div>
+				<div class="text-center">
+					<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
+					<p>Caption: <%= image.caption %></p>
+					<p>Posted on: <%= image.created.toDateString().slice(4,15) %></p>
+				</div>
+				<div class="container" id="comments">
+					<div><h6>Comments</h6></div>
+					<p>User 1: Comment</p>
+					<p>User 2: Comment</p>
+					<p>User 3: Comment</p>
+					<p>User 4: Comment</p>
+					<p>User 5: Comment</p>
+					<p>User 6: Comment</p>
+					<form class="mt-2">
+						<div class="form-group">
+							<textarea class="form-control col-12" type="text" name="comment" placeholder="Write a comment"></textarea>
+						</div>
+						<button class="col-12 btn btn-primary text-white" type="submit">Add new comment&nbsp;&nbsp;<i class="fa fa-comment"></i></button>
+					</form>
 				</div>
 			</div>
 		</div>
