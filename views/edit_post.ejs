@@ -17,7 +17,7 @@
 					<div class="mx-auto mb-4 text-center">
 						<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit post</h2>
 					</div>
-					<form action="/user/country/<%= image._id %>?_method=PUT" class="mx-auto col-12" id="edit-form" method="POST">
+					<form action="/user/country/<%= image._id %>?_method=PUT" method="POST" class="mx-auto col-12" id="edit-form">
 						<div class="form-group">
 							<label for="image[location]">Location</label>
 							<input class="form-control" type="text" name="image[location]" value="<%= image.location %>">

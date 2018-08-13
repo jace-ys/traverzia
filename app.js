@@ -23,6 +23,7 @@ mongoose.connect(mlab_uri, {useNewUrlParser: true});
 // Data Schemas
 var Models = require("./models/users");
 var Image = require("./models/images");
+var Comment = require("./models/comments");
 var User = Models.userSchema;
 
 // Routes
@@ -107,22 +108,42 @@ app.get("/user/:country", (req, res) => {
 
 // Route: View post
 app.get("/user/:country/:imageID", (req, res) => {
-	Image.findById(req.params.imageID, (err, resultImage) => {
+	Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
 		if(err) {
 			res.redirect("/user/country");
 		} else {
-			res.render("view_image", {image: resultImage});
+			res.render("view_image", {image: image});
 		}
 	}); 
 });
 
-// Route: Edit post
-app.get("/user/:country/:imageID/edit", (req, res) => {
-	Image.findById(req.params.imageID, (err, resultImage) => {
+// Route: Add comment
+app.post("/user/:country/:imageID/comment", (req, res) => {
+	Image.findById(req.params.imageID, (err, image) => {
 		if(err) {
 			console.log(err);
 		} else {
-			res.render("edit_post", {image: resultImage});
+			Comment.create(req.body, (err, comment) => {
+				image.comments.push(comment);
+				image.save((err) => {
+					if(err) {
+						console.log(err);
+					} else {
+						res.render("comments", {image: image});
+					}
+				});
+			});
+		}
+	});
+});
+
+// Route: Edit post
+app.get("/user/:country/:imageID/edit", (req, res) => {
+	Image.findById(req.params.imageID, (err, image) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("edit_post", {image: image});
 		}
 	});
 });

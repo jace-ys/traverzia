@@ -47,12 +47,12 @@
 	}
 }
 
-#comments {
+#comments-section {
 	padding-top: 20px;
 }
 
 @media screen and (min-width: 768px) {
-	#comments {
+	#comments-section {
 		padding: 20px 20px 0 20px;
 	}
 }

@@ -1,4 +1,4 @@
-// $("#edit-form").on('submit', function(e) {
+// $("#edit-form").on("click", function(e) {
 //     e.preventDefault();
 //     var formData = {
 //         location: $("#edit-form input").val(),
@@ -20,7 +20,7 @@
 //     });
 // });
 
-// $("#delete-button").on('click', function(e) {
+// $("#delete-button").on("click", function(e) {
 //     e.preventDefault();
 //     var imageID = $(this).attr("value");
 //     console.log(imageID);
@@ -40,4 +40,3 @@
 //         }
 //     });
 // });
-
