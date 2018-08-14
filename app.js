@@ -3,7 +3,7 @@ var path = require("path"),
 	bodyParser = require("body-parser"),
 	methodOverride = require("method-override"),
 	passport = require("passport"),
-	localStrategy = require("passport-local"),
+	LocalStrategy = require("passport-local"),
 	passportLocalMongoose = require("passport-local-mongoose"),
 	mongoose = require("mongoose"),
 	express = require("express"),
@@ -37,11 +37,17 @@ var User = Models.userSchema;
 // Setup Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new localStrategy(User.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Routes
+// Middleware
+app.use((req, res, next) => {
+	res.locals.user = req.user;
+	next();
+});
+
+// Route: Home
 app.get("/", (req, res) => {
 	res.render("home");
 });
@@ -52,16 +58,15 @@ app.get("/signup", (req, res) => {
 });
 
 app.post("/signup", (req, res) => {
-	var newUser = { username: req.body.username, name: req.body.name, email: req.body.email };
-	User.register(new User(newUser), req.body.password, (err, user) => {
+	var newUser = new User({ username: req.body.username, name: req.body.name, email: req.body.email });
+	User.register(newUser, req.body.password, (err, user) => {
 		if(err) {
 			console.log(err);
-			res.render("signup");
-		} else {
-			passport.authenticate("local", { session: false })(req, res, () => {
-				res.redirect("/login");
-			});
+			return res.render("signup");
 		}
+		passport.authenticate("local", { session: false })(req, res, () => {
+			res.redirect("/login");
+		});
 	});
 });
 
@@ -213,9 +218,8 @@ app.get("*", (req, res) => {
 function isLoggedIn(req, res, next) {
 	if(req.isAuthenticated()) {
 		return next();
-	} else {
-		res.redirect("/login");
 	}
+	res.redirect("/login");
 }
 
 // Listen
