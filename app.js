@@ -2,17 +2,25 @@
 var path = require("path"),
 	bodyParser = require("body-parser"),
 	methodOverride = require("method-override"),
+	passport = require("passport"),
+	localStrategy = require("passport-local"),
+	passportLocalMongoose = require("passport-local-mongoose"),
 	mongoose = require("mongoose"),
 	express = require("express"),
 	app = express();
 
-// Setup
+// General Setup
+app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
-app.set("view engine", "ejs");
+app.use(require("express-session")({
+	secret: "Discover Traverzia's secret",
+	resave: false,
+	saveUninitialized: false
+}));
 
-// Define port for server to listen on
+// Define Port
 app.set("port", process.env.PORT || 8080);
 var port = app.get('port');
 
@@ -26,6 +34,13 @@ var Image = require("./models/images");
 var Comment = require("./models/comments");
 var User = Models.userSchema;
 
+// Setup Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Routes
 app.get("/", (req, res) => {
 	res.render("home");
@@ -37,7 +52,17 @@ app.get("/signup", (req, res) => {
 });
 
 app.post("/signup", (req, res) => {
-	res.redirect("/login");
+	var newUser = { username: req.body.username, name: req.body.name, email: req.body.email };
+	User.register(new User(newUser), req.body.password, (err, user) => {
+		if(err) {
+			console.log(err);
+			res.render("signup");
+		} else {
+			passport.authenticate("local", { session: false })(req, res, () => {
+				res.redirect("/login");
+			});
+		}
+	});
 });
 
 // Route: Login
@@ -45,10 +70,16 @@ app.get("/login", (req, res) => {
 	res.render("login");
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", passport.authenticate("local", {
+	successRedirect: "/",
+	failureRedirect: "/login"
+}));
+
+//Route: Logout
+app.get("/logout", (req, res) => {
+	req.logout();
 	res.redirect("/");
 });
-
 
 // Route: Search
 app.get("/search", (req, res) => {
@@ -80,7 +111,7 @@ app.get("/user", (req, res) => {
 });
 
 // Route: Upload image
-app.get("/user/upload", (req, res) => {
+app.get("/user/upload", isLoggedIn, (req, res) => {
 	res.render("upload");
 });
 
@@ -102,8 +133,8 @@ app.get("/user/:country", (req, res) => {
 		} else {
 			res.render("country", {username: "Jace", imageData: images});
 		}
-	})
-})
+	});
+});
 
 // Route: View post
 app.get("/user/:country/:imageID", (req, res) => {
@@ -177,6 +208,15 @@ app.get("/error", (req, res) => {
 app.get("*", (req, res) => {
 	res.redirect("/error");
 });
+
+// Functions
+function isLoggedIn(req, res, next) {
+	if(req.isAuthenticated()) {
+		return next();
+	} else {
+		res.redirect("/login");
+	}
+}
 
 // Listen
 app.listen(port, () => {

@@ -1,5 +1,5 @@
-var mongoose = require("mongoose");
-var Comment = require("./comments");
+var mongoose = require("mongoose"),
+	Comment = require("./comments");
 
 var imageSchema = new mongoose.Schema({
 	source: String,
