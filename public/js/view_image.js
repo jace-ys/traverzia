@@ -10,8 +10,7 @@ $("#comment-form").on("submit", (event) => {
         url: endpoint,
         data: newComment,
         success: function(res) {
-            $("#comments").html(res);
-            $("#comment-form textarea").val("");
+            window.location.href = res.redirect_url;
         },
         error: function(res) {
             console.log("Failed to submit comment");

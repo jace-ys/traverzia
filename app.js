@@ -120,7 +120,7 @@ app.get("/user/upload", isLoggedIn, (req, res) => {
 	res.render("upload");
 });
 
-app.post("/user", (req, res) => {
+app.post("/user", isLoggedIn, (req, res) => {
 	Image.create(req.body, (err, upload) => {
 		if(err) {
 			res.redirect("/user/upload");
@@ -153,7 +153,7 @@ app.get("/user/:country/:imageID", (req, res) => {
 });
 
 // Route: Add comment
-app.post("/user/:country/:imageID/comment", (req, res) => {
+app.post("/user/:country/:imageID/comment", canComment, (req, res) => {
 	Image.findById(req.params.imageID, (err, image) => {
 		if(err) {
 			console.log(err);
@@ -164,9 +164,7 @@ app.post("/user/:country/:imageID/comment", (req, res) => {
 					if(err) {
 						console.log(err);
 					} else {
-						Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
-							res.render("comments", {image: image});
-						});
+						res.send({redirect_url: `/user/:country/${req.params.imageID}`});
 					}
 				});
 			});
@@ -175,7 +173,7 @@ app.post("/user/:country/:imageID/comment", (req, res) => {
 });
 
 // Route: Edit post
-app.get("/user/:country/:imageID/edit", (req, res) => {
+app.get("/user/:country/:imageID/edit", isLoggedIn, (req, res) => {
 	Image.findById(req.params.imageID, (err, image) => {
 		if(err) {
 			console.log(err);
@@ -185,7 +183,7 @@ app.get("/user/:country/:imageID/edit", (req, res) => {
 	});
 });
 
-app.put("/user/:country/:imageID", (req, res) => {
+app.put("/user/:country/:imageID", isLoggedIn, (req, res) => {
 	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
 		if(err) {
 			console.log(err);
@@ -195,7 +193,7 @@ app.put("/user/:country/:imageID", (req, res) => {
 	});
 });
 
-app.delete("/user/:country/:imageID", (req, res) => {
+app.delete("/user/:country/:imageID", isLoggedIn, (req, res) => {
 	Image.findByIdAndRemove(req.params.imageID, (err) => {
 		if(err) {
 			console.log(err);
@@ -220,6 +218,13 @@ function isLoggedIn(req, res, next) {
 		return next();
 	}
 	res.redirect("/login");
+}
+
+function canComment(req, res, next) {
+	if(req.isAuthenticated()) {
+		return next();
+	}
+	res.send({redirect_url: "/login"});
 }
 
 // Listen
