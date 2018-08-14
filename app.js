@@ -94,7 +94,6 @@ app.post("/user", (req, res) => {
 	});
 });
 
-
 // Route: View countries
 app.get("/user/:country", (req, res) => {
 	Image.find({}, (err, images) => {

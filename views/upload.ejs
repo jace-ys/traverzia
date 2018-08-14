@@ -13,7 +13,7 @@
 				</div>
 				<div class="form-group">
 					<label for="image[location]">Location</label>
-					<input class="form-control" type="text" name="image[location]" placeholder="Location">
+					<input class="form-control" type="text" name="image[location]" placeholder="Location" pattern="^[a-zA-Z]*, [a-zA-Z]*$" oninvalid="this.setCustomValidity('Format: location, country')">
 				</div>
 				<div class="form-group">
 					<label for="image[caption]">Caption</label>
