@@ -18,7 +18,9 @@
 				</div>
 				<div class="container" id="comments-section">
 					<h6>Comments</h6>
-					<div id="comments"><% include comments %>
+					<div id="comments">
+						<% var len; image.comments.length > 6 ? len = 6 : len = image.comments.length; for(var i = 0; i < len; i++) { %>
+						<p><%= image.comments[i].author %>: <%= image.comments[i].text %></p> <% } %>
 					</div>
 					<form action="/user/country/<%= image._id %>/comment" method="POST" class="mt-2" id="comment-form">
 						<div class="form-group">
