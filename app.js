@@ -9,6 +9,13 @@ var path = require("path"),
 	express = require("express"),
 	app = express();
 
+// Require routes
+var routes = require("./routes/routes"),
+	userRoutes = require("./routes/user"),
+	imageRoutes = require("./routes/image"),
+	authRoutes = require("./routes/auth"),
+	errorRoutes = require("./routes/error");
+
 // General Setup
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -46,186 +53,11 @@ app.use((req, res, next) => {
 	res.locals.user = req.user;
 	next();
 });
-
-// Route: Home
-app.get("/", (req, res) => {
-	res.render("home");
-});
-
-// Route: Sign up
-app.get("/signup", (req, res) => {
-	res.render("signup");
-});
-
-app.post("/signup", (req, res) => {
-	var newUser = new User({ username: req.body.username, name: req.body.name, email: req.body.email });
-	User.register(newUser, req.body.password, (err, user) => {
-		if(err) {
-			console.log(err);
-			return res.render("signup");
-		}
-		passport.authenticate("local", { session: false })(req, res, () => {
-			res.redirect("/login");
-		});
-	});
-});
-
-// Route: Login
-app.get("/login", (req, res) => {
-	res.render("login");
-});
-
-app.post("/login", passport.authenticate("local", {
-	successRedirect: "/",
-	failureRedirect: "/login"
-}));
-
-//Route: Logout
-app.get("/logout", (req, res) => {
-	req.logout();
-	res.redirect("/");
-});
-
-// Route: Search
-app.get("/search", (req, res) => {
-	Image.find({}, (err, images) => {
-		if(err) {
-			res.redirect("/error");
-		} else {
-			res.render("user", {username: "Jace", imageData: images});
-		}
-	});
-	//res.render("search");
-});
-
-// Route: Discover
-app.get("/discover", (req, res) => {
-	res.redirect("/user");
-	//res.render("discover");
-});
-
-// Route: View user
-app.get("/user", (req, res) => {
-	Image.find({}, (err, images) => {
-		if(err) {
-			res.redirect("/error");
-		} else {
-			res.render("user", {username: "Jace", imageData: images});
-		}
-	})
-});
-
-// Route: Upload image
-app.get("/user/upload", isLoggedIn, (req, res) => {
-	res.render("upload");
-});
-
-app.post("/user", isLoggedIn, (req, res) => {
-	Image.create(req.body, (err, upload) => {
-		if(err) {
-			res.redirect("/user/upload");
-		} else {
-			res.send({redirect_url: "/user"});
-		}
-	});
-});
-
-// Route: View countries
-app.get("/user/:country", (req, res) => {
-	Image.find({}, (err, images) => {
-		if(err) {
-			res.redirect("/error");
-		} else {
-			res.render("country", {username: "Jace", imageData: images});
-		}
-	});
-});
-
-// Route: View post
-app.get("/user/:country/:imageID", (req, res) => {
-	Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
-		if(err) {
-			res.redirect("/user/country");
-		} else {
-			res.render("view_image", {image: image});
-		}
-	}); 
-});
-
-// Route: Add comment
-app.post("/user/:country/:imageID/comment", canComment, (req, res) => {
-	Image.findById(req.params.imageID, (err, image) => {
-		if(err) {
-			console.log(err);
-		} else {
-			Comment.create(req.body, (err, comment) => {
-				image.comments.push(comment);
-				image.save((err) => {
-					if(err) {
-						console.log(err);
-					} else {
-						res.send({redirect_url: `/user/:country/${req.params.imageID}`});
-					}
-				});
-			});
-		}
-	});
-});
-
-// Route: Edit post
-app.get("/user/:country/:imageID/edit", isLoggedIn, (req, res) => {
-	Image.findById(req.params.imageID, (err, image) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.render("edit_post", {image: image});
-		}
-	});
-});
-
-app.put("/user/:country/:imageID", isLoggedIn, (req, res) => {
-	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.redirect(`/user/country/${req.params.imageID}`);
-		}
-	});
-});
-
-app.delete("/user/:country/:imageID", isLoggedIn, (req, res) => {
-	Image.findByIdAndRemove(req.params.imageID, (err) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.redirect("/user/country");
-		}
-	});
-});
-
-// Handle invalid routes
-app.get("/error", (req, res) => {
-	res.send("404 page not found!");
-});
-
-app.get("*", (req, res) => {
-	res.redirect("/error");
-});
-
-// Functions
-function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect("/login");
-}
-
-function canComment(req, res, next) {
-	if(req.isAuthenticated()) {
-		return next();
-	}
-	res.send({redirect_url: "/login"});
-}
+app.use(routes);
+app.use("/user", userRoutes);
+app.use("/user/:country/:imageID", imageRoutes);
+app.use(authRoutes);
+app.use(errorRoutes);
 
 // Listen
 app.listen(port, () => {
