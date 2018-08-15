@@ -53,12 +53,23 @@ app.use((req, res, next) => {
 	res.locals.loggedIn = req.user;
 	next();
 });
-app.use(routes);
+app.use(errorRoutes);
 app.use(authRoutes);
+app.use(routes);
 app.use("/upload", uploadRoutes);
 app.use("/:username", userRoutes);
 app.use("/:username/:country/:imageID", imageRoutes);
-app.use(errorRoutes);
+
+//Error handler
+app.use((err, req, res, next) => {
+	if(err.httpStatusCode === 404) {
+		res.send("404 content not found!");
+	}
+});
+
+app.get("*", (req, res) => {
+	res.redirect("/error");
+});
 
 // Listen
 app.listen(port, () => {

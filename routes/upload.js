@@ -13,7 +13,7 @@ router.post("/", isLoggedIn, (req, res) => {
 		if(err) {
 			res.redirect("/upload");
 		} else {
-			res.send({redirect_url: "/jaceys"});
+			res.send({redirect_url: "/"});
 		}
 	});
 });

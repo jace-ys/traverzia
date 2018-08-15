@@ -6,8 +6,6 @@ router.get("/error", (req, res) => {
 	res.send("404 page not found!");
 });
 
-router.get("*", (req, res) => {
-	res.redirect("/error");
-});
+router.get("/error")
 
 module.exports = router;

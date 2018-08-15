@@ -4,10 +4,14 @@ var express = require("express"),
 	User = require("../models/users");
 
 // Route: View user
-router.get("/", (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
+router.get("/", (req, res, next) => {
+	User.findOne(req.params, (err, user) => {
 		if(err) {
-			res.redirect("/error");
+			console.log(err);
+		} else if(!user) {
+			const error = new Error("User not found");
+    		error.httpStatusCode = 404;
+    		return next(error);
 		} else {
 			Image.find({}, (err, images) => {
 				if(err) {
@@ -22,7 +26,7 @@ router.get("/", (req, res) => {
 
 // Route: View countries
 router.get("/:country", (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
+	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			res.redirect("/error");
 		} else {
@@ -36,13 +40,5 @@ router.get("/:country", (req, res) => {
 		}
 	});
 });
-
-// Functions
-function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect("/login");
-}
 
 module.exports = router;

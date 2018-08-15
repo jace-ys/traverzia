@@ -6,7 +6,7 @@ var express = require("express"),
 
 // Route: View post
 router.get("/", (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
+	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			res.redirect("/error");
 		} else {
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 
 // Route: Add comment
 router.post("/comment", canComment, (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
+	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			res.redirect("/error");
 		} else {
@@ -32,6 +32,8 @@ router.post("/comment", canComment, (req, res) => {
 					console.log(err);
 				} else {
 					Comment.create(req.body, (err, comment) => {
+						comment.author = req.user.name;
+						comment.save();
 						image.comments.push(comment);
 						image.save((err) => {
 							if(err) {
@@ -49,7 +51,7 @@ router.post("/comment", canComment, (req, res) => {
 
 // Route: Edit post
 router.get("/edit", isLoggedIn, (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
+	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
 		} else {
@@ -65,7 +67,7 @@ router.get("/edit", isLoggedIn, (req, res) => {
 });
 
 router.put("/", isLoggedIn, (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
+	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
 		} else {
@@ -81,7 +83,7 @@ router.put("/", isLoggedIn, (req, res) => {
 });
 
 router.delete("/", isLoggedIn, (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
+	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
 		} else {

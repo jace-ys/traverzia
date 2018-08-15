@@ -1,14 +1,10 @@
 $("#comment-form").on("submit", (event) => {
 	event.preventDefault();
 	var endpoint = $("#comment-form").attr("action");
-	var newComment = {
-		text: $("#comment-form textarea").val(),
-		author: "Jace"
-	}
 	$.ajax({
         type: "POST",
         url: endpoint,
-        data: newComment,
+        data: {text: $("#comment-form textarea").val()},
         success: function(res) {
             window.location.href = res.redirect_url;
         },

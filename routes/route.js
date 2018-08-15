@@ -10,37 +10,12 @@ router.get("/", (req, res) => {
 
 // Route: Search
 router.get("/search", (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
-		if(err) {
-			res.redirect("/error");
-		} else {
-			Image.find({}, (err, images) => {
-				if(err) {
-					res.redirect("/error");
-				} else {
-					res.render("user", {user: user, imageData: images});
-				}
-			});
-		}
-	});
-	//res.render("search");
+	res.send("Page under construction");
 });
 
 // Route: Discover
 router.get("/discover", (req, res) => {
-	User.findOne({username: "jaceys"}, (err, user) => {
-		if(err) {
-			res.redirect("/error");
-		} else {
-			Image.find({}, (err, images) => {
-				if(err) {
-					res.redirect("/error");
-				} else {
-					res.render("user", {user: user, imageData: images});
-				}
-			});
-		}
-	});
+	res.redirect("/jaceys");
 	//res.render("discover");
 });
 
