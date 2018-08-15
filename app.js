@@ -16,7 +16,7 @@ var routes = require("./routes/routes"),
 	authRoutes = require("./routes/auth"),
 	errorRoutes = require("./routes/error");
 
-// General Setup
+// General setup
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -27,15 +27,15 @@ app.use(require("express-session")({
 	saveUninitialized: false
 }));
 
-// Define Port
+// Define port
 app.set("port", process.env.PORT || 8080);
 var port = app.get('port');
 
-// MongoDB Setup
+// MongoDB setup
 var mlab_uri = require("./access").access.mlab;
 mongoose.connect(mlab_uri, {useNewUrlParser: true});
 
-// Data Schemas
+// Data schemas
 var Models = require("./models/users");
 var Image = require("./models/images");
 var Comment = require("./models/comments");
