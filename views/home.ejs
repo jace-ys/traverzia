@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Traverzia</title>
+    <link rel="icon" type="image/ico" href="/images/logo.ico">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -28,7 +29,7 @@
                     	<li class="nav-item" >
                             <a class="nav-link text-center" href="/discover">Discover</a>
                         </li>
-                        <% if(!user) { %>
+                        <% if(!loggedIn) { %>
                         <li class="nav-item" >
                             <a class="nav-link text-center" href="/signup">Sign up</a>
                         </li>
@@ -37,14 +38,14 @@
                         </li>
                         <% } else { %>
                         <li class="nav-item" >
-                            <a class="nav-link text-center" href="/user/upload">Upload</a>
+                            <a class="nav-link text-center" href="/upload">Upload</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown text-center">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Account
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Profile</a>
+                            <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/<%= loggedIn.username %>">Profile</a>
                                 <a class="dropdown-item" href="/logout">Logout</a>
                             </div>
                         </li>
@@ -71,8 +72,8 @@
 					</div>
 				</form>
 				<div class="text-center mx-auto" id="home-buttons">
-					<a href="/user/upload" class="btn btn-lg btn-outline-primary">Share your travels</a>
-                    <a href="/discover" class="btn btn-lg btn-outline-primary">Get inspired!</a>
+					<a href="/upload" class="btn btn-lg btn-outline-primary">Share your travels</a>
+                    <a href="/jaceys" class="btn btn-lg btn-outline-primary">Get inspired!</a>
 				</div>
 			</div>
 		</div>

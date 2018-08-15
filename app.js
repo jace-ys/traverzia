@@ -10,8 +10,9 @@ var path = require("path"),
 	app = express();
 
 // Require routes
-var routes = require("./routes/routes"),
+var routes = require("./routes/route"),
 	userRoutes = require("./routes/user"),
+	uploadRoutes = require("./routes/upload"),
 	imageRoutes = require("./routes/image"),
 	authRoutes = require("./routes/auth"),
 	errorRoutes = require("./routes/error");
@@ -36,10 +37,9 @@ var mlab_uri = require("./access").access.mlab;
 mongoose.connect(mlab_uri, {useNewUrlParser: true});
 
 // Data schemas
-var Models = require("./models/users");
-var Image = require("./models/images");
 var Comment = require("./models/comments");
-var User = Models.userSchema;
+var Image = require("./models/images");
+var User = require("./models/users");
 
 // Setup Passport.js
 app.use(passport.initialize());
@@ -50,14 +50,26 @@ passport.deserializeUser(User.deserializeUser());
 
 // Middleware
 app.use((req, res, next) => {
-	res.locals.user = req.user;
+	res.locals.loggedIn = req.user;
 	next();
 });
-app.use(routes);
-app.use("/user", userRoutes);
-app.use("/user/:country/:imageID", imageRoutes);
-app.use(authRoutes);
 app.use(errorRoutes);
+app.use(authRoutes);
+app.use(routes);
+app.use("/upload", uploadRoutes);
+app.use("/:username", userRoutes);
+app.use("/:username/:country/:imageID", imageRoutes);
+
+//Error handler
+app.use((err, req, res, next) => {
+	if(err.httpStatusCode === 404) {
+		res.send("404 content not found!");
+	}
+});
+
+app.get("*", (req, res) => {
+	res.redirect("/error");
+});
 
 // Listen
 app.listen(port, () => {
