@@ -33,7 +33,7 @@
                         <li class="nav-item" >
                             <a class="nav-link text-center" href="/discover">Discover</a>
                         </li>
-                        <% if(!user) { %>
+                        <% if(!loggedIn) { %>
                         <li class="nav-item" >
                             <a class="nav-link text-center" href="/signup">Sign up</a>
                         </li>
@@ -42,7 +42,7 @@
                         </li>
                         <% } else { %>
                         <li class="nav-item" >
-                            <a class="nav-link text-center" href="/user/upload">Upload</a>
+                            <a class="nav-link text-center" href="/upload">Upload</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

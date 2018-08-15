@@ -1,10 +1,15 @@
 var express = require("express"),
-	router = express.Router({mergeParams: true}),
+	router = express.Router(),
 	Image = require("../models/images"),
 	User = require("../models/users");
 
-// Route: View user
+// Route: Home
 router.get("/", (req, res) => {
+	res.render("home");
+});
+
+// Route: Search
+router.get("/search", (req, res) => {
 	User.findOne({username: "jaceys"}, (err, user) => {
 		if(err) {
 			res.redirect("/error");
@@ -18,10 +23,11 @@ router.get("/", (req, res) => {
 			});
 		}
 	});
+	//res.render("search");
 });
 
-// Route: View countries
-router.get("/:country", (req, res) => {
+// Route: Discover
+router.get("/discover", (req, res) => {
 	User.findOne({username: "jaceys"}, (err, user) => {
 		if(err) {
 			res.redirect("/error");
@@ -30,19 +36,12 @@ router.get("/:country", (req, res) => {
 				if(err) {
 					res.redirect("/error");
 				} else {
-					res.render("country", {user: user, imageData: images});
+					res.render("user", {user: user, imageData: images});
 				}
 			});
 		}
 	});
+	//res.render("discover");
 });
-
-// Functions
-function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect("/login");
-}
 
 module.exports = router;

@@ -1,34 +1,47 @@
 var express = require("express"),
 	router = express.Router({mergeParams: true}),
+	Comment = require("../models/comments"),
 	Image = require("../models/images"),
-	Comment = require("../models/comments");
+	User = require("../models/users");
 
 // Route: View post
 router.get("/", (req, res) => {
-	Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
+	User.findOne({username: "jaceys"}, (err, user) => {
 		if(err) {
-			res.redirect("/user/country");
+			res.redirect("/error");
 		} else {
-			res.render("view_image", {image: image});
+			Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
+				if(err) {
+					console.log(err);
+				} else {
+					res.render("view_image", {user: user, image: image});
+				}
+			});
 		}
-	}); 
+	});
 });
 
 // Route: Add comment
 router.post("/comment", canComment, (req, res) => {
-	Image.findById(req.params.imageID, (err, image) => {
+	User.findOne({username: "jaceys"}, (err, user) => {
 		if(err) {
-			console.log(err);
+			res.redirect("/error");
 		} else {
-			Comment.create(req.body, (err, comment) => {
-				image.comments.push(comment);
-				image.save((err) => {
-					if(err) {
-						console.log(err);
-					} else {
-						res.send({redirect_url: `/user/:country/${req.params.imageID}`});
-					}
-				});
+			Image.findById(req.params.imageID, (err, image) => {
+				if(err) {
+					console.log(err);
+				} else {
+					Comment.create(req.body, (err, comment) => {
+						image.comments.push(comment);
+						image.save((err) => {
+							if(err) {
+								console.log(err);
+							} else {
+								res.send({redirect_url: `/${user.username}/:country/${req.params.imageID}`});
+							}
+						});
+					});
+				}
 			});
 		}
 	});
@@ -36,31 +49,49 @@ router.post("/comment", canComment, (req, res) => {
 
 // Route: Edit post
 router.get("/edit", isLoggedIn, (req, res) => {
-	Image.findById(req.params.imageID, (err, image) => {
+	User.findOne({username: "jaceys"}, (err, user) => {
 		if(err) {
 			console.log(err);
 		} else {
-			res.render("edit_post", {image: image});
+			Image.findById(req.params.imageID, (err, image) => {
+				if(err) {
+					console.log(err);
+				} else {
+					res.render("edit_post", {user: user, image: image});
+				}
+			});
 		}
 	});
 });
 
 router.put("/", isLoggedIn, (req, res) => {
-	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
+	User.findOne({username: "jaceys"}, (err, user) => {
 		if(err) {
 			console.log(err);
 		} else {
-			res.redirect(`/user/country/${req.params.imageID}`);
+			Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
+				if(err) {
+					console.log(err);
+				} else {
+					res.redirect(`/${user.username}/country/${req.params.imageID}`);
+				}
+			});
 		}
 	});
 });
 
 router.delete("/", isLoggedIn, (req, res) => {
-	Image.findByIdAndRemove(req.params.imageID, (err) => {
+	User.findOne({username: "jaceys"}, (err, user) => {
 		if(err) {
 			console.log(err);
 		} else {
-			res.redirect("/user/country");
+			Image.findByIdAndRemove(req.params.imageID, (err) => {
+				if(err) {
+					console.log(err);
+				} else {
+					res.redirect(`/${user.username}/country`);
+				}
+			});
 		}
 	});
 });
