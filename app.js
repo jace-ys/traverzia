@@ -30,7 +30,7 @@ app.use(require("express-session")({
 
 // Define port
 app.set("port", process.env.PORT || 8080);
-var port = app.get('port');
+var port = app.get("port");
 
 // MongoDB setup
 var mlab_uri = require("./access").access.mlab;
@@ -60,15 +60,13 @@ app.use("/upload", uploadRoutes);
 app.use("/:username", userRoutes);
 app.use("/:username/:country/:imageID", imageRoutes);
 
-//Error handler
-app.use((err, req, res, next) => {
-	if(err.httpStatusCode === 404) {
-		res.send("404 content not found!");
-	}
-});
-
 app.get("*", (req, res) => {
 	res.redirect("/error");
+});
+
+//Error handler
+app.use((err, req, res, next) => {
+	
 });
 
 // Listen
