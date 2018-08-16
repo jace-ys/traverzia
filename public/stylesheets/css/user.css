@@ -11,6 +11,22 @@
 	background-color: #A7FFEB;
 }
 
+#edit-button a, #edit-button i {
+	float: right;
+}
+
+#edit-button i {
+	position: absolute;
+	color: #00796B;
+	font-size: 1rem;
+	margin: 10px 0 0 10px;
+}
+
+#bio textarea {
+	border: none;
+	display: none;
+}
+
 h6 {
 	color: #000000;
 }
@@ -22,12 +38,6 @@ h6 {
 .img-thumbnail {
 	border: none;
 	border-radius: none;
-	margin: 0;
-	padding: 0;
-}
-
-.img-fluid {
-	margin: 0;
 }
 
 .square {

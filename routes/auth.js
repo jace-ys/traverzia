@@ -9,7 +9,7 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-	var newUser = new User({ username: req.body.username, name: req.body.name, email: req.body.email });
+	var newUser = new User({ username: req.body.username, name: req.body.name, email: req.body.email, bio: "Bio:"});
 	User.register(newUser, req.body.password, (err, user) => {
 		if(err) {
 			console.log(err);
