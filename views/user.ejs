@@ -16,11 +16,11 @@
 				<% var image = imageData[i] %>
 				<span class="col-lg-3 col-sm-6 col-12 text-center square">
 					<div>
-						<a href="/<%= user.username %>/country">
-							<img class="img-fluid" src="<%= image.source %>">
+						<a href="/<%= user.username %>/<%= image.latest.country %>">
+							<img class="img-fluid" src="<%= image.latest.source %>">
 						</a>
 						<div class="figure-caption">
-							<p class="location"><%= image.country %></p>
+							<p class="location"><%= image.latest.country %></p>
 						</div>
 					</div>
 				</span>

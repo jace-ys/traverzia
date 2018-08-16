@@ -27,7 +27,7 @@ router.post("/", isLoggedIn, (req, res) => {
 						if(err) {
 							console.log(err);
 						} else {
-							res.send({redirect_url: "/"});
+							res.send({redirect_url: `/${req.user.username}`});
 						}
 					});
 				}
