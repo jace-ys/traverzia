@@ -17,7 +17,7 @@ router.post("/", isLoggedIn, (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			// Find Country else create
+			// Find/create Country and push Image
 			Country.findOneAndUpdate({name: newImage.country}, {"$push": {images: image}}, {upsert: true, new: true}, (err, country) => {
 				if(err) {
 					console.log(err);
