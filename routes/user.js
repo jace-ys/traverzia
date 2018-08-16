@@ -35,6 +35,7 @@ router.get("/:country", (req, res) => {
 			// Get all Images from selected country
 			Image.aggregate([
 				{ "$match": { author: user.username, country: req.params.country } },
+				{ "$sort": { created: -1 } }
 			]).exec((err, images) => {
 				if(err) {
 					console.log(err);
