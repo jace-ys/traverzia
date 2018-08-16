@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 
 // Route: Search
 router.get("/search", (req, res) => {
-	res.send("Page under construction");
+	res.send("Search feature under construction");
 });
 
 // Route: Discover

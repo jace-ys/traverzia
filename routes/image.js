@@ -23,6 +23,10 @@ router.get("/", (req, res) => {
 
 // Route: Add comment
 router.post("/comment", canComment, (req, res) => {
+	var newComment = {
+		text: req.body.text,
+		author: req.user.name
+	}
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			res.redirect("/error");
@@ -31,9 +35,7 @@ router.post("/comment", canComment, (req, res) => {
 				if(err) {
 					console.log(err);
 				} else {
-					Comment.create(req.body, (err, comment) => {
-						comment.author = req.user.name;
-						comment.save();
+					Comment.create(newComment, (err, comment) => {
 						image.comments.push(comment);
 						image.save((err) => {
 							if(err) {

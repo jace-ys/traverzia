@@ -5,17 +5,18 @@ var express = require("express"),
 
 // Route: View user
 router.get("/", (req, res, next) => {
-	User.findOne(req.params, (err, user) => {
+	// Find User
+	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
-		} else if(!user) {
-			const error = new Error("User not found");
-    		error.httpStatusCode = 404;
-    		return next(error);
 		} else {
-			Image.find({}, (err, images) => {
+			// Aggregate latest Image from each country group
+			Image.aggregate([
+				{ "$match": { author: user.username } },
+				{ "$group": { "_id": "$country", "latest": { "$last": "$$ROOT" } } }
+			]).exec((err, images) => {
 				if(err) {
-					res.redirect("/error");
+					console.log(err);
 				} else {
 					res.render("user", {user: user, imageData: images});
 				}
@@ -24,17 +25,21 @@ router.get("/", (req, res, next) => {
 	});
 });
 
-// Route: View countries
+// Route: View country under user
 router.get("/:country", (req, res) => {
+	// Find User
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
-			res.redirect("/error");
+			console.log(err);
 		} else {
-			Image.find({}, (err, images) => {
+			// Get all Images from selected country
+			Image.aggregate([
+				{ "$match": { author: user.username, country: req.params.country } },
+			]).exec((err, images) => {
 				if(err) {
-					res.redirect("/error");
+					console.log(err);
 				} else {
-					res.render("country", {user: user, imageData: images});
+					res.render("country", {user: user, country: req.params.country, imageData: images});
 				}
 			});
 		}

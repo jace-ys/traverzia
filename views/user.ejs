@@ -4,7 +4,7 @@
 	<div id="user-header">
 		<div class="mx-auto text-center" id="user-meta">
 			<h3><%= user.username %></h3>
-			<h6>Bio: My name is Jace!</h6>
+			<h6>Bio: </h6>
 		</div>
 	</div>
 	
@@ -16,11 +16,11 @@
 				<% var image = imageData[i] %>
 				<span class="col-lg-3 col-sm-6 col-12 text-center square">
 					<div>
-						<a href="/<%= user.username %>/country">
-							<img class="img-fluid" src="<%= image.source %>">
+						<a href="/<%= user.username %>/<%= image.latest.country %>">
+							<img class="img-fluid" src="<%= image.latest.source %>">
 						</a>
 						<div class="figure-caption">
-							<p class="location"><%= image.location %></p>
+							<p class="location"><%= image.latest.country %></p>
 						</div>
 					</div>
 				</span>

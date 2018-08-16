@@ -6,6 +6,7 @@ var imageSchema = new mongoose.Schema({
 	country: String,
 	location: String,
 	caption: String,
+	author: String,
 	created: {type: Date, default: Date.now},
 	comments: [{
 		type: mongoose.Schema.Types.ObjectId,
