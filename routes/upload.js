@@ -17,25 +17,18 @@ router.post("/", isLoggedIn, (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			// Find Country
-			Country.findOne({name: newImage.country}, (err, country) => {
+			// Find Country else create
+			Country.findOneAndUpdate({name: newImage.country}, {"$push": {images: image}}, {upsert: true, new: true}, (err, country) => {
 				if(err) {
 					console.log(err);
-				} else if(!country) { // Create Country if it doesn't exist and push Image
-					Country.create({name: newImage.country}, (err, createdCountry) => {
-						createdCountry.images.push(image);
-						createdCountry.save();
-						// Add Country to user
-						User.findOneAndUpdate({username: newImage.author}, {"$addToSet": {countries : createdCountry}}, (err, user) => {
-							res.send({redirect_url: "/"});
-						});
-					});
-				} else { // Push Image to existing Country
-					country.images.push(image);
-					country.save();
+				} else {
 					// Add Country to user
-					User.findOneAndUpdate({username: newImage.author}, {"$addToSet": {countries : country}}, (err, user) => {
-						res.send({redirect_url: "/"});
+					User.findOneAndUpdate({username: req.user.username}, {"$addToSet": {countries : country}}, (err, user) => {
+						if(err) {
+							console.log(err);
+						} else {
+							res.send({redirect_url: "/"});
+						}
 					});
 				}
 			});
