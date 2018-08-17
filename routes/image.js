@@ -101,7 +101,7 @@ router.delete("/", isLoggedIn, (req, res) => {
 										} else {
 											if(images.length === 1) {
 												// Remove Country from User
-												User.findOneAndUpdate(req.user, {"$pull": {countries: country._id}}, (err, user) => {
+												User.update(req.user, {"$pull": {countries: country._id}}, (err, user) => {
 													if(err) {
 														console.log(err);
 													} else {
