@@ -39,7 +39,7 @@ router.post("/comment", canComment, (req, res) => {
 					if(err) {
 						console.log(err);
 					} else {
-						res.send({redirect_url: `/${req.params.username}/${req.params.country}/${req.params.imageID}`});
+						res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
 					}
 				});
 			});
