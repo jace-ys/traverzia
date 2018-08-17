@@ -9,7 +9,7 @@ $("#comment-form").on("submit", (event) => {
             window.location.href = res.redirect_url;
         },
         error: function(res) {
-            console.log("Failed to submit comment");
+            window.location.href = "/error";
         }
     });
 })

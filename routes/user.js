@@ -47,4 +47,33 @@ router.get("/:country", (req, res) => {
 	});
 });
 
+// Route: Edit user bio
+router.post("/update_bio", checkPermissions, (req, res) => {
+	User.findByIdAndUpdate(req.user._id, {bio: req.body.bio}, (err, user) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.send({updated: true, user: user});
+		}
+	});
+});
+
+function checkPermissions(req, res, next) {
+	if(req.isAuthenticated()) {
+		User.findOne({username: req.params.username}, (err, user) => {
+			if(err) {
+				console.log(err);
+			} else {
+				if(user.username === req.user.username) {
+					next();
+				} else {
+					res.send({updated: false});
+				}
+			}
+		});
+	} else {
+		res.send({updated: false});
+	}
+}
+
 module.exports = router;

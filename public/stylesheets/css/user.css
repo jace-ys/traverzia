@@ -20,6 +20,11 @@
 	color: #00796B;
 	font-size: 1rem;
 	margin: 10px 0 0 10px;
+	opacity: 0.5;
+}
+
+#edit-button i:hover {
+	opacity: 1;
 }
 
 #bio textarea {

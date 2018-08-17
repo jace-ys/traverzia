@@ -52,7 +52,7 @@ router.post("/comment", canComment, (req, res) => {
 });
 
 // Route: Edit post
-router.get("/edit", isLoggedIn, (req, res) => {
+router.get("/edit", checkPermissions, (req, res) => {
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
@@ -68,7 +68,7 @@ router.get("/edit", isLoggedIn, (req, res) => {
 	});
 });
 
-router.put("/", isLoggedIn, (req, res) => {
+router.put("/", checkPermissions, (req, res) => {
 	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
 		if(err) {
 			console.log(err);
@@ -78,7 +78,7 @@ router.put("/", isLoggedIn, (req, res) => {
 	});
 });
 
-router.delete("/", isLoggedIn, (req, res) => {
+router.delete("/", checkPermissions, (req, res) => {
 	// Find Image
 	Image.findOne({ _id: req.params.imageID}, (err, image) => {
 		if(err) {
@@ -140,6 +140,24 @@ function canComment(req, res, next) {
 		return next();
 	}
 	res.send({redirect_url: "/login"});
+}
+
+function checkPermissions(req, res, next) {
+	if(req.isAuthenticated()) {
+		Image.findById(req.params.imageID, (err, image) => {
+			if(err) {
+				console.log(err);
+			} else {
+				if(image.author === req.user.username) {
+					next();
+				} else {
+					res.redirect("back");
+				}
+			}
+		});
+	} else {
+		res.redirect("back");
+	}
 }
 
 module.exports = router;

@@ -43,6 +43,14 @@ textarea {
 	color: #FFFFFF;
 }
 
+.dropdown-menu, .dropdown-item {
+	color: #FFFFFF;
+}
+
+.dropdown-menu #username {
+	margin-bottom: 0;
+}
+
 .container-fluid {
 	display: table;
 	height: 100vh;
