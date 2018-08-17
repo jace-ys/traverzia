@@ -43,6 +43,13 @@ textarea {
 	color: #FFFFFF;
 }
 
+@media screen and (max-width: 992px) {
+	.dropdown-menu {
+		border-color: #FFFFFF;
+		margin: 5px;
+	}
+}
+
 .dropdown-menu, .dropdown-item {
 	color: #FFFFFF;
 }
