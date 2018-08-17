@@ -38,8 +38,13 @@ router.post("/comment", canComment, (req, res) => {
 					console.log(err);
 				} else {
 					image.comments.push(comment);
-					image.save();
-					res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
+					image.save((err) => {
+						if(err) {
+							console.log(err);
+						} else {
+							res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
+						}
+					});
 				}
 			});
 		}
