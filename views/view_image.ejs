@@ -7,21 +7,21 @@
 				<img class="img-fluid" src="<%= image.source %>">
 			</div>
 			<div class="col-lg-8 col-12" id="text-panel">
-				<div>
-					<a href="/<%= user.username %>/country/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
-					<a href="/<%= user.username %>/country" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
+				<div id="edit-return">
+					<a href="/<%= user.username %>/<%= country %>/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
+					<a href="/<%= user.username %>/<%= country %>" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
 				</div>
 				<div class="text-center">
-					<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
+					<h6><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
 					<p>Caption: <%= image.caption %></p>
-					<p>Posted on: <%= image.created.toDateString().slice(4,15) %></p>
+					<p>Posted on: <%= image.created.toDateString().slice(4,15) %> by <a href="/<%= user.username %>" id="posted-by"><%= user.username %></a></p>
 				</div>
 				<div class="container" id="comments-section">
 					<h6>Comments</h6>
 					<div id="comments"><% var len; image.comments.length > 6 ? len = 6 : len = image.comments.length; for(var i = 0; i < len; i++) { %>
 						<p><%= image.comments[i].author %>: <%= image.comments[i].text %></p> <% } %>
 					</div>
-					<form action="/<%= user.username %>/country/<%= image._id %>/comment" method="POST" class="mt-2" id="comment-form">
+					<form action="/<%= user.username %>/<%= user.username %>/<%= image._id %>/comment" method="POST" class="mt-2" id="comment-form">
 						<div class="form-group">
 							<textarea class="form-control col-12" type="text" name="comment" placeholder="Write a comment"></textarea>
 						</div>

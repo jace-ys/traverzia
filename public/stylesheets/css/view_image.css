@@ -23,6 +23,10 @@
 	padding: 20px;
 }
 
+#edit-return {
+	position: absolute;
+}
+
 .fa-edit, .fa-arrow-alt-circle-left {
 	float: right;
 	color: rgb(169,169,169,0.6);
@@ -45,6 +49,10 @@
 	#text-panel {
 		margin-top: 20px;
 	}
+}
+
+#posted-by:hover {
+	color: #26A69A;
 }
 
 #comments-section {

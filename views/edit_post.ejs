@@ -8,16 +8,16 @@
 					<img class="img-fluid" src="<%= image.source %>">
 				</div>
 				<div class="col-lg-8 col-md-6 col-12" id="text-panel">
-					<div>
-						<a href="/<%= user.username %>/country/<%= image._id %>" title="Cancel edit"><i class="fa fa-times"></i></a>
-						<form action="/<%= user.username %>/country/<%= image._id %>?_method=DELETE" method="POST" id="delete-button">
+					<div id="delete-cancel">
+						<a href="/<%= user.username %>/<%= country %>/<%= image._id %>" title="Cancel edit"><i class="fa fa-times"></i></a>
+						<form action="/<%= user.username %>/<%= country %>/<%= image._id %>?_method=DELETE" method="POST" id="delete-button">
     						<a href="javascript:;" onclick="$('#delete-button').submit();" title="Delete post"><i class="fa fa-trash-alt"></i></a>
 						</form>
 					</div>
 					<div class="mx-auto mb-4 text-center">
 						<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit post</h2>
 					</div>
-					<form action="/<%= user.username %>/country/<%= image._id %>?_method=PUT" method="POST" class="mx-auto col-12" id="edit-form">
+					<form action="/<%= user.username %>/<%= country %>/<%= image._id %>?_method=PUT" method="POST" class="mx-auto col-12" id="edit-form">
 						<div class="form-group">
 							<label for="image[location]">Location</label>
 							<input class="form-control" type="text" name="image[location]" value="<%= image.location %>">
@@ -36,5 +36,4 @@
 	</div>
 
 <% include templates/scripts %>
-<script type="text/javascript" src="/js/edit_post.js"></script>
 <% include templates/footer %>
