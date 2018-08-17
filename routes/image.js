@@ -34,14 +34,13 @@ router.post("/comment", canComment, (req, res) => {
 			console.log(err);
 		} else {
 			Comment.create(newComment, (err, comment) => {
-				image.comments.push(comment);
-				image.save((err) => {
-					if(err) {
-						console.log(err);
-					} else {
-						res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
-					}
-				});
+				if(err) {
+					console.log(err);
+				} else {
+					image.comments.push(comment);
+					image.save();
+					res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
+				}
 			});
 		}
 	});
