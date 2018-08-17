@@ -10,13 +10,12 @@ router.get("/", (req, res) => {
 
 // Route: Search
 router.get("/search", (req, res) => {
-	res.send("Search feature under construction");
+	res.render("search");
 });
 
 // Route: Discover
 router.get("/discover", (req, res) => {
-	res.redirect("/jaceys");
-	//res.render("discover");
+	res.render("discover");
 });
 
 module.exports = router;

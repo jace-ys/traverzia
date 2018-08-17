@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Traverzia</title>
@@ -45,11 +45,13 @@
                         <li class="nav-item" >
                             <a class="nav-link text-center" href="/upload">Upload</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown text-center">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Account
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu text-center bg-dark" aria-labelledby="navbarDropdown">
+                                <p id="username"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;<%= loggedIn.username %></p>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/<%= loggedIn.username %>">Profile</a>
                                 <a class="dropdown-item" href="/logout">Logout</a>
                             </div>

@@ -2,10 +2,10 @@
 <link href="/stylesheets/css/user.css" rel="stylesheet" type="text/css">
 
 	<div id="user-header">
-		<a href="#" id="edit-button"><i class="fa fa-edit"></i></a>
+		<% if(loggedIn && user.username === loggedIn.username) { %><a href="#" id="edit-button"><i class="fa fa-edit"></i></a><% } %>
 		<div class="mx-auto text-center" id="user-meta">
 			<h3><%= user.username %></h3>
-			<span id="bio"><textarea class="form-control col-md-6 col-9" rows="1" type="text" name="bio" placeholder="<%= user.bio %>"></textarea><h6><%= user.bio %></h6></span>
+			<span id="bio"><textarea endpoint="/<%= user.username %>/update_bio" class="form-control col-md-6 col-9" rows="1" type="text" name="bio"><%= user.bio %></textarea><h6><%= user.bio %></h6></span>
 		</div>
 	</div>
 	

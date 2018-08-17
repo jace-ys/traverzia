@@ -22,7 +22,7 @@ $("#upload-form").on("submit", (event) => {
         	}
         },
         error: function(res) {
-            console.log("Failed to upload");
+            window.location.href = "/error";
         }
 	});
 });
