@@ -40,7 +40,7 @@ router.get("/:country", (req, res) => {
 				if(err) {
 					console.log(err);
 				} else {
-					res.render("country", {user: user, country: req.params.country, imageData: images});
+					res.render("user_country", {user: user, country: req.params.country, imageData: images});
 				}
 			});
 		}

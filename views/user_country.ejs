@@ -1,0 +1,33 @@
+<% include templates/header %>
+<link href="/stylesheets/css/user_country.css" rel="stylesheet" type="text/css">
+
+	<div id="user-header">
+		<a href="/<%= user.username %>"><i class="fa fa-chevron-circle-left"></i></a>
+		<div class="mx-auto text-center" id="user-meta">
+			<h3><%= user.name %>'s travelogues</h3>
+			<h5><%= country %></h5>
+		</div>
+	</div>
+	
+	<div class="container mt-4 mb-4">
+		<div class="text-center container" id="country">
+			<div class="row gallery">
+			<% for(var i = 0; i < imageData.length; i++) { %>
+				<% var image = imageData[i] %>
+				<span class="col-lg-3 col-sm-6 col-12 text-center square">
+					<div>
+						<a href="/<%= user.username %>/<%= country %>/<%= image._id %>">
+							<img class="img-fluid" src="<%= image.source %>">
+						</a>
+						<div class="figure-caption">
+							<p class="location"><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></p>
+						</div>
+					</div>
+				</span>
+			<% } %>
+			</div>
+		</div>
+	</div>
+
+<% include templates/scripts %>
+<% include templates/footer %>
