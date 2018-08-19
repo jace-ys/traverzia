@@ -1,7 +1,29 @@
 <% include templates/header %>
+<link href="/stylesheets/css/search.css" rel="stylesheet" type="text/css">
 
-	<div class="container-fluid" id="search">
-		
+	<div class="text-center" id="search-header">
+		<h2>Search: <%= search %></h2>
+	</div>
+	<div class="container mb-4">
+		<div class="text-center container">
+			<% if(!results.length) { %><h4>No search results found</h4><% } else { %>
+			<div class="row gallery">
+			<% for(var i = 0; i < results.length; i++) { %>
+				<% var image = results[i] %>
+				<span class="col-lg-3 col-sm-6 col-12 text-center image">
+					<div>
+						<a href="/<%= image.author %>/<%= image.country %>/<%= image._id %>">
+							<img class="img-fluid" src="<%= image.source %>">
+						</a>
+						<div class="figure-caption">
+							<p class="location"><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></p>
+						</div>
+					</div>
+				</span>
+			<% } %>
+			</div>
+			<% } %>
+		</div>
 	</div>
 
 <% include templates/scripts %>

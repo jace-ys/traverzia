@@ -15,7 +15,7 @@
 			<div class="row gallery">
 			<% for(var i = 0; i < imageData.length; i++) { %>
 				<% var image = imageData[i] %>
-				<span class="col-lg-3 col-sm-6 col-12 text-center square">
+				<span class="col-lg-3 col-sm-6 col-12 text-center image">
 					<div>
 						<a href="/<%= user.username %>/<%= image.latest.country %>">
 							<img class="img-fluid" src="<%= image.latest.source %>">
