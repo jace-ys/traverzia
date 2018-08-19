@@ -1,15 +1,16 @@
 var express = require("express"),
 	router = express.Router(),
+	middleware = require("../middleware"),
 	Image = require("../models/images"),
 	Country = require("../models/countries"),
 	User = require("../models/users");
 
 // Route: Upload image
-router.get("/", isLoggedIn, (req, res) => {
+router.get("/", middleware.isLoggedIn, (req, res) => {
 	res.render("upload");
 });
 
-router.post("/", isLoggedIn, (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
 	var newImage = req.body;
 	newImage.author = req.user.username;
 	// Create Image
@@ -35,13 +36,5 @@ router.post("/", isLoggedIn, (req, res) => {
 		}
 	});
 });
-
-// Functions
-function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect("/login");
-}
 
 module.exports = router;

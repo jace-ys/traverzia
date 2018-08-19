@@ -17,6 +17,10 @@ var routes = require("./routes/route"),
 	authRoutes = require("./routes/auth"),
 	errorRoutes = require("./routes/error");
 
+// Define port
+app.set("port", process.env.PORT || 8080);
+var port = app.get("port");
+
 // General setup
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -28,17 +32,11 @@ app.use(require("express-session")({
 	saveUninitialized: false
 }));
 
-// Define port
-app.set("port", process.env.PORT || 8080);
-var port = app.get("port");
-
 // MongoDB setup
 var mlab_uri = require("./access").access.mlab;
 mongoose.connect(mlab_uri, {useNewUrlParser: true});
 
-// Data schemas
-var Comment = require("./models/comments");
-var Image = require("./models/images");
+// Data Schemas
 var User = require("./models/users");
 
 // Setup Passport.js
@@ -53,6 +51,8 @@ app.use((req, res, next) => {
 	res.locals.loggedIn = req.user;
 	next();
 });
+
+// Routes
 app.use(errorRoutes);
 app.use(authRoutes);
 app.use(routes);

@@ -1,5 +1,6 @@
 var express = require("express"),
 	router = express.Router({mergeParams: true}),
+	middleware = require("../middleware"),
 	Comment = require("../models/comments"),
 	Image = require("../models/images"),
 	Country = require("../models/countries"),
@@ -25,7 +26,7 @@ router.get("/", (req, res) => {
 });
 
 // Route: Add comment
-router.post("/comment", canComment, (req, res) => {
+router.post("/comment", middleware.allowComment, (req, res) => {
 	var newComment = {
 		text: req.body.text,
 		author: req.user.username,
@@ -54,7 +55,7 @@ router.post("/comment", canComment, (req, res) => {
 });
 
 // Route: Edit post
-router.get("/edit", checkPermissions, (req, res) => {
+router.get("/edit", middleware.checkImagePermissions, (req, res) => {
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
@@ -70,7 +71,7 @@ router.get("/edit", checkPermissions, (req, res) => {
 	});
 });
 
-router.put("/", checkPermissions, (req, res) => {
+router.put("/", middleware.checkImagePermissions, (req, res) => {
 	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
 		if(err) {
 			console.log(err);
@@ -80,7 +81,7 @@ router.put("/", checkPermissions, (req, res) => {
 	});
 });
 
-router.delete("/", checkPermissions, (req, res) => {
+router.delete("/", middleware.checkImagePermissions, (req, res) => {
 	// Find Image
 	Image.findOne({ _id: req.params.imageID}, (err, image) => {
 		if(err) {
@@ -128,38 +129,5 @@ router.delete("/", checkPermissions, (req, res) => {
 		}
 	});
 });
-
-// Functions
-function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect("/login");
-}
-
-function canComment(req, res, next) {
-	if(req.isAuthenticated()) {
-		return next();
-	}
-	res.send({redirect_url: "/login"});
-}
-
-function checkPermissions(req, res, next) {
-	if(req.isAuthenticated()) {
-		Image.findById(req.params.imageID, (err, image) => {
-			if(err) {
-				console.log(err);
-			} else {
-				if(image.author === req.user.username) {
-					next();
-				} else {
-					res.redirect("back");
-				}
-			}
-		});
-	} else {
-		res.redirect("back");
-	}
-}
 
 module.exports = router;
