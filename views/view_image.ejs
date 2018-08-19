@@ -10,8 +10,8 @@
 				<div id="edit-return">
 					<% if(loggedIn && user.username === loggedIn.username) { %>
 					<a href="/<%= user.username %>/<%= country %>/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>
-					<a href="/<%= user.username %>/<%= country %>" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
 					<% } %>
+					<a href="/<%= user.username %>/<%= country %>" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
 				</div>
 				<div class="text-center">
 					<h6><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>

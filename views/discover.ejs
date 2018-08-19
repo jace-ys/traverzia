@@ -1,7 +1,28 @@
 <% include templates/header %>
+<link href="/stylesheets/css/discover.css" rel="stylesheet" type="text/css">
+	
+	<div class="text-center" id="discover-header">
+		<h2>Discover</h2>
+	</div>
 
-	<div class="container-fluid" id="discover">
-		
+	<div class="container mb-4">
+		<div class="text-center container">
+			<div class="row gallery">
+			<% for(var i = 0; i < imageData.length; i++) { %>
+				<% var image = imageData[i] %>
+				<span class="col-lg-3 col-sm-6 col-12 text-center image">
+					<div>
+						<a href="/<%= image.author %>/<%= image.country %>/<%= image._id %>">
+							<img class="img-fluid" src="<%= image.source %>">
+						</a>
+						<div class="figure-caption">
+							<p class="location"><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></p>
+						</div>
+					</div>
+				</span>
+			<% } %>
+			</div>
+		</div>
 	</div>
 
 <% include templates/scripts %>
