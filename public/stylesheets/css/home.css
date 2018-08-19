@@ -16,4 +16,5 @@ h5 {
 #home-buttons a {
 	margin: 7.5px;
 	color: #FFFFFF !important;
+	border: 1px solid #FFFFFF !important;
 }
