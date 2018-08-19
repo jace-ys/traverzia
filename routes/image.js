@@ -11,11 +11,13 @@ router.get("/", (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			Image.findById(req.params.imageID).populate("comments").exec((err, image) => {
+			Image.findById(req.params.imageID, (err, image) => {
 				if(err) {
 					console.log(err);
 				} else {
-					res.render("view_image", {user: user, country: req.params.country, image: image});
+					Comment.find({image: req.params.imageID}).sort({_id: -1}).limit(6).exec((err, comments) => {
+						res.render("view_image", {user: user, country: req.params.country, image: image, comments: comments});
+					})
 				}
 			});
 		}

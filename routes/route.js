@@ -34,7 +34,11 @@ router.get("/search", (req, res) => {
 // Route: Discover
 router.get("/discover", (req, res) => {
 	Image.find().limit(15).sort({created: -1}).exec((err, images) => {
-		res.render("discover", {imageData: images});
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("discover", {imageData: images});
+		}
 	});
 });
 

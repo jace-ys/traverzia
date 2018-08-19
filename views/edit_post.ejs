@@ -1,35 +1,34 @@
 <% include templates/header %>
+<link href="/stylesheets/css/edit_post.css" rel="stylesheet" type="text/css">
 
 	<div class="container" id="edit-image">
 		<div class="row">
-			<div class="" id="content">
-				<div class="col-lg-4 col-md-6 col-12" id="image-panel">
-					<img class="img-fluid" src="<%= image.source %>">
-				</div>
-				<div class="col-lg-8 col-md-6 col-12" id="text-panel">
-					<div id="delete-cancel">
-						<a href="/<%= user.username %>/<%= country %>/<%= image._id %>" title="Cancel edit"><i class="fa fa-times"></i></a>
-						<form action="/<%= user.username %>/<%= country %>/<%= image._id %>?_method=DELETE" method="POST" id="delete-button">
-    						<a href="javascript:;" onclick="$('#delete-button').submit();" title="Delete post"><i class="fa fa-trash-alt"></i></a>
-						</form>
-					</div>
-					<div class="mx-auto mb-4 text-center">
-						<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit post</h2>
-					</div>
-					<form action="/<%= user.username %>/<%= country %>/<%= image._id %>?_method=PUT" method="POST" class="mx-auto col-12" id="edit-form">
-						<div class="form-group">
-							<label for="image[location]">Location</label>
-							<input class="form-control" type="text" name="image[location]" value="<%= image.location %>">
-						</div>
-						<div class="form-group">
-							<label for="image[caption]">Caption</label>
-							<textarea class="form-control" type="text" name="image[caption]" rows="3"><%= image.caption %></textarea>
-						</div>
-						<div class="text-center">
-							<button type="submit" class="btn btn-primary btn-lg text-white">Edit <i class="fa fa-edit"></i></button>
-						</div>
+			<div class="col-lg-4 col-md-6 col-12" id="image-panel">
+				<img class="img-fluid" src="<%= image.source %>">
+			</div>
+			<div class="col-lg-8 col-md-6 col-12" id="text-panel">
+				<div id="delete-cancel">
+					<a href="/<%= user.username %>/<%= country %>/<%= image._id %>" title="Cancel edit"><i class="fa fa-times"></i></a>
+					<form action="/<%= user.username %>/<%= country %>/<%= image._id %>?_method=DELETE" method="POST" id="delete-button">
+						<a href="javascript:;" onclick="$('#delete-button').submit();" title="Delete post"><i class="fa fa-trash-alt"></i></a>
 					</form>
 				</div>
+				<div class="mx-auto mb-4 text-center">
+					<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit post</h2>
+				</div>
+				<form action="/<%= user.username %>/<%= country %>/<%= image._id %>?_method=PUT" method="POST" class="mx-auto col-12" id="edit-form">
+					<div class="form-group">
+						<label for="image[location]">Location</label>
+						<input class="form-control" type="text" name="image[location]" value="<%= image.location %>">
+					</div>
+					<div class="form-group">
+						<label for="image[caption]">Caption</label>
+						<textarea class="form-control" type="text" name="image[caption]" rows="3"><%= image.caption %></textarea>
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary btn-lg text-white">Edit <i class="fa fa-edit"></i></button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
