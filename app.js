@@ -2,6 +2,7 @@
 var path = require("path"),
 	bodyParser = require("body-parser"),
 	methodOverride = require("method-override"),
+	flash = require("connect-flash"),
 	passport = require("passport"),
 	LocalStrategy = require("passport-local"),
 	passportLocalMongoose = require("passport-local-mongoose"),
@@ -31,6 +32,7 @@ app.use(require("express-session")({
 	resave: false,
 	saveUninitialized: false
 }));
+app.use(flash());
 
 // MongoDB setup
 var mlab_uri = require("./access").access.mlab;
@@ -46,9 +48,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Middleware
+// Response Locals
 app.use((req, res, next) => {
 	res.locals.loggedIn = req.user;
+	res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
 	next();
 });
 

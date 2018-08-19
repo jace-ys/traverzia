@@ -8,6 +8,7 @@ middleware.isLoggedIn = function(req, res, next) {
 	if(req.isAuthenticated()) {
 		return next();
 	}
+	req.flash("error", "You need to be logged in to do that");
 	res.redirect("/login");
 }
 
@@ -33,6 +34,7 @@ middleware.allowComment = function(req, res, next) {
 	if(req.isAuthenticated()) {
 		return next();
 	}
+	req.flash("error", "You need to be logged in to do that");
 	res.send({redirect_url: "/login"});
 }
 
@@ -45,12 +47,14 @@ middleware.checkImagePermissions = function(req, res, next) {
 				if(image.author === req.user.username) {
 					next();
 				} else {
-					res.redirect("back");
+					req.flash("error", "Access denied");
+					res.redirect("/login");
 				}
 			}
 		});
 	} else {
-		res.redirect("back");
+		req.flash("error", "You need to be logged in to do that");
+		res.redirect("/login");
 	}
 }
 

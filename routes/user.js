@@ -26,6 +26,17 @@ router.get("/", (req, res, next) => {
 	});
 });
 
+// Route: Edit user bio
+router.post("/update_bio", middleware.checkUser, (req, res) => {
+	User.findByIdAndUpdate(req.user._id, {bio: req.body.bio}, (err, user) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.send({updated: true, user: user});
+		}
+	});
+});
+
 // Route: View country under user
 router.get("/:country", (req, res) => {
 	// Find User
@@ -40,21 +51,13 @@ router.get("/:country", (req, res) => {
 			]).exec((err, images) => {
 				if(err) {
 					console.log(err);
+				} else if(!images.length) {
+					req.flash("error", "Content not found");
+					res.redirect("back");
 				} else {
 					res.render("user_country", {user: user, country: req.params.country, imageData: images});
 				}
 			});
-		}
-	});
-});
-
-// Route: Edit user bio
-router.post("/update_bio", middleware.checkUser, (req, res) => {
-	User.findByIdAndUpdate(req.user._id, {bio: req.body.bio}, (err, user) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.send({updated: true, user: user});
 		}
 	});
 });
