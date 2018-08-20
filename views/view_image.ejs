@@ -7,6 +7,18 @@
 				<img class="img-fluid" src="<%= image.source %>">
 			</div>
 			<div class="col-lg-8 col-12" id="text-panel">
+				<div class="container text-center">
+					<% if(success && success.length) { %>
+			        <div class="col-12 mx-auto alert alert-success" role="alert">
+			            <%= success %>
+			        </div>
+					<% } %>
+					<% if(error && error.length) { %>
+			        <div class="col-12 mx-auto alert alert-danger" role="alert">
+			            <%= error %>
+			        </div>
+					<% } %>
+				</div>
 				<div id="edit-return">
 					<% if(loggedIn && user.username === loggedIn.username) { %>
 					<a href="/<%= user.username %>/<%= country %>/<%= image._id %>/edit" title="Edit post"><i class="fa fa-edit"></i></a>

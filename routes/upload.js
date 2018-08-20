@@ -16,18 +16,19 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 	// Create Image
 	Image.create(newImage, (err, image) => {
 		if(err) {
-			console.log(err);
+			req.flash("error", "Error occured while uploading. Please try again.");
 		} else {
 			// Find/create Country and push Image
 			Country.findOneAndUpdate({name: newImage.country}, {"$push": {images: image}}, {upsert: true, new: true}, (err, country) => {
 				if(err) {
-					console.log(err);
+					req.flash("error", "Error occured while uploading. Please try again.");
 				} else {
 					// Add Country to user
 					User.findOneAndUpdate({username: req.user.username}, {"$addToSet": {countries : country}}, (err, user) => {
 						if(err) {
-							console.log(err);
+							req.flash("error", "Error occured while uploading. Please try again.");
 						} else {
+							req.flash("success", "Image uploaded successfully!");
 							res.send({redirect_url: `/${req.user.username}`});
 						}
 					});

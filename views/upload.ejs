@@ -3,6 +3,16 @@
 
 	<div class="container-fluid" id="upload">
 		<div class="row">
+			<% if(success && success.length) { %>
+			<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-success" role="alert">
+				<%= success %>
+			</div>
+			<% } %>
+			<% if(error && error.length) { %>
+			<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-danger" role="alert">
+				<%= error %>
+			</div>
+			<% } %>
 			<div class="mx-auto mb-4 text-center">
 				<h2>Share your travels!</h2>
 			</div>

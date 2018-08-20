@@ -21,11 +21,13 @@ middleware.checkUser = function(req, res, next) {
 				if(user.username === req.user.username) {
 					next();
 				} else {
+					req.flash("error", "Access Denied");
 					res.send({updated: false});
 				}
 			}
 		});
 	} else {
+		req.flash("error", "You need to be logged in to do that");
 		res.send({updated: false});
 	}
 }

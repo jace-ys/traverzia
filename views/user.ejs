@@ -1,6 +1,18 @@
 <% include templates/header %>
 <link href="/stylesheets/css/user.css" rel="stylesheet" type="text/css">
 
+	<div class="container alert-container text-center mt-4">
+		<% if(success && success.length) { %>
+		<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-success" role="alert">
+			<%= success %>
+		</div>
+		<% } %>
+		<% if(error && error.length) { %>
+		<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-danger" role="alert">
+			<%= error %>
+		</div>
+		<% } %>
+	</div>
 	<div id="user-header">
 		<% if(loggedIn && user.username === loggedIn.username) { %><a href="#" id="edit-button"><i class="fa fa-edit"></i></a><% } %>
 		<div class="mx-auto text-center" id="user-meta">
@@ -8,7 +20,7 @@
 			<span id="bio"><textarea endpoint="/<%= user.username %>/update_bio" class="form-control col-md-6 col-9" rows="1" type="text" name="bio"><%= user.bio %></textarea><h6><%= user.bio %></h6></span>
 		</div>
 	</div>
-	
+
 	<div class="container mt-4 mb-4">
 		<div class="text-center container" id="travelogue">
 			<h6 class="mb-4"><%= user.name %>'s travelogues</h6>
