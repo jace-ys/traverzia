@@ -21,17 +21,18 @@ function updateBio(text) {
 	$.ajax({
 		type: "POST",
 		url: endpoint,
-        data: {bio: bio},
-        dataType: "json",
-        success: function(res) {
-        	if(res.updated) {
-            	window.location.href = `/${res.user.username}`;
-        	} else {
-        		console.log(err);
-        	}
-        },
-        error: function(res) {
-            console.log(err);
-        }
+    data: {bio: bio},
+    dataType: "json",
+    success: function(res) {
+    	if(res.updated) {
+      	window.location.href = `/${res.user.username}`;
+    	} else {
+				window.location.href = "/";
+    	}
+    },
+    error: function(res) {
+      console.log(err);
+			window.location.href = "/";
+    }
 	});
 }
