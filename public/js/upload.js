@@ -13,16 +13,16 @@ $("#upload-form").on("submit", (event) => {
 	}
 	$.ajax({
 		type: "POST",
-        url: endpoint,
-        data: newImage,
-        dataType: "json",
-        success: function(res) {
-        	if(res.redirect_url) {
-            	window.location.href = res.redirect_url;
-        	}
-        },
-        error: function(res) {
-            window.location.href = "/error";
-        }
+    url: endpoint,
+    data: newImage,
+    dataType: "json",
+    success: function(res) {
+    	if(res.redirect_url) {
+      	window.location.href = res.redirect_url;
+    	}
+    },
+    error: function(res) {
+      window.location.href = "/error";
+    }
 	});
 });

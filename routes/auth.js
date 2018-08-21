@@ -1,7 +1,7 @@
-var passport = require("passport"),
-	express = require("express"),
-	router = express.Router(),
-	User = require("../models/users");
+const passport = require("passport"),
+			express = require("express"),
+			router = express.Router(),
+			User = require("../models/users");
 
 // Route: Sign up
 router.get("/signup", (req, res) => {
@@ -9,9 +9,10 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-	var newUser = new User({ username: req.body.username, name: req.body.name, email: req.body.email, bio: "Bio:"});
+	const newUser = new User({ username: req.body.username, name: req.body.name, email: req.body.email, bio: "Bio"});
 	User.register(newUser, req.body.password, (err, user) => {
 		if(err) {
+			console.log(err);
 			req.flash("error", "Error creating account! Please try again.");
 			return res.render("signup");
 		}
@@ -31,14 +32,14 @@ router.post("/login", passport.authenticate("local", {
 	failureRedirect: "/login",
 	failureFlash: "Invalid username or password."
 }), (req, res) => {
-	req.flash("success", `You have been logged in as ${req.user.username}`);
-	res.redirect("/");
+	req.flash("success", "You have been logged in.");
+	res.redirect(`/${req.user.username}`);
 });
 
 //Route: Logout
 router.get("/logout", (req, res) => {
 	req.logout();
-	req.flash("success", "Logged out successfully!");
+	req.flash("success", "Logout successful.");
 	res.redirect("/");
 });
 
