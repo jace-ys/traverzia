@@ -1,8 +1,8 @@
-var express = require("express"),
-	router = express.Router({mergeParams: true}),
-	middleware = require("../middleware"),
-	Image = require("../models/images"),
-	User = require("../models/users");
+const express = require("express"),
+			router = express.Router({mergeParams: true}),
+			middleware = require("../middleware"),
+			Image = require("../models/images"),
+			User = require("../models/users");
 
 // Route: View user
 router.get("/", (req, res, next) => {
@@ -11,7 +11,7 @@ router.get("/", (req, res, next) => {
 		if(err) {
 			console.log(err);
 		} else if(!user) {
-			req.flash("error", "User not found");
+			req.flash("error", "User does not exist.");
 			res.redirect("/");
 		} else {
 			// Aggregate latest Image from each country group
@@ -33,7 +33,9 @@ router.get("/", (req, res, next) => {
 router.post("/update_bio", middleware.checkUser, (req, res) => {
 	User.findByIdAndUpdate(req.user._id, {bio: req.body.bio}, (err, user) => {
 		if(err) {
-			req.flash("error", "Error updating user profile!");
+			console.log(err);
+			req.flash("error", "Error occured, please try again later.");
+			res.send({updated: false});
 		} else {
 			req.flash("success", "User profile updated!");
 			res.send({updated: true, user: user});
@@ -48,7 +50,7 @@ router.get("/:country", (req, res) => {
 		if(err) {
 			console.log(err);
 		} else if(!user) {
-			req.flash("error", "User not found");
+			req.flash("error", "User does not exist.");
 			res.redirect("/");
 		} else {
 			// Get all Images from selected country
@@ -59,8 +61,8 @@ router.get("/:country", (req, res) => {
 				if(err) {
 					console.log(err);
 				} else if(!images.length) {
-					req.flash("error", "Content not found");
-					res.redirect("back");
+					req.flash("error", "Requested content not found.");
+					res.redirect(`/${user.username}`);
 				} else {
 					res.render("user_country", {user: user, country: req.params.country, imageData: images});
 				}

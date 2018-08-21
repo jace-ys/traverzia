@@ -1,14 +1,14 @@
 <% include templates/header %>
 <link href="/stylesheets/css/discover.css" rel="stylesheet" type="text/css">
-	
+
 	<div class="text-center" id="discover-header">
 		<h2>Discover</h2>
 	</div>
-
 	<div class="container mb-4">
 		<div class="text-center container">
+			<% if(imageData && !imageData.length) { %><h5>No content found</h5><% } else { %>
 			<div class="row gallery">
-			<% for(var i = 0; i < imageData.length; i++) { %>
+				<% for(var i = 0; i < imageData.length; i++) { %>
 				<% var image = imageData[i] %>
 				<span class="col-lg-3 col-sm-6 col-12 text-center image">
 					<div>
@@ -20,8 +20,9 @@
 						</div>
 					</div>
 				</span>
-			<% } %>
+				<% } %>
 			</div>
+			<% } %>
 		</div>
 	</div>
 

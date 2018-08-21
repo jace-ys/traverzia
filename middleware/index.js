@@ -18,7 +18,7 @@ middleware.checkUser = function(req, res, next) {
 			if(err) {
 				console.log(err);
 				req.flash("error", "Error occured, please try again later.");
-				res.send({update: false});
+				res.send({updated: false});
 			} else if(!user) {
 				req.flash("error", "User does not exist.");
 				res.send({updated: false});

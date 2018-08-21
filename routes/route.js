@@ -1,8 +1,8 @@
-var express = require("express"),
-	router = express.Router(),
-	Image = require("../models/images"),
-	Country = require("../models/countries"),
-	User = require("../models/users");
+const express = require("express"),
+			router = express.Router(),
+			Image = require("../models/images"),
+			Country = require("../models/countries"),
+			User = require("../models/users");
 
 // Route: Home
 router.get("/", (req, res) => {
@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 // Route: Search
 router.get("/search", (req, res) => {
-	var search = new RegExp(req.query.query, "i");
+	const search = new RegExp(req.query.query, "i");
 	User.findOne({username: search}, (err, user) => {
 		if(err) {
 			console.log(err);
@@ -36,9 +36,6 @@ router.get("/discover", (req, res) => {
 	Image.find().limit(15).sort({created: -1}).exec((err, images) => {
 		if(err) {
 			console.log(err);
-		} else if(!images) {
-			req.flash("error", "No content found");
-			res.redirect("/");
 		} else {
 			res.render("discover", {imageData: images});
 		}

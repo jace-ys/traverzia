@@ -6,9 +6,9 @@
 	</div>
 	<div class="container mb-4">
 		<div class="text-center container">
-			<% if(!results.length) { %><h4>No search results found</h4><% } else { %>
+			<% if(results && !results.length) { %><h5>No search results found</h5><% } else { %>
 			<div class="row gallery">
-			<% for(var i = 0; i < results.length; i++) { %>
+				<% for(var i = 0; i < results.length; i++) { %>
 				<% var image = results[i] %>
 				<span class="col-lg-3 col-sm-6 col-12 text-center image">
 					<div>
@@ -20,7 +20,7 @@
 						</div>
 					</div>
 				</span>
-			<% } %>
+				<% } %>
 			</div>
 			<% } %>
 		</div>

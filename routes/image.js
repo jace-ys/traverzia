@@ -1,10 +1,10 @@
-var express = require("express"),
-	router = express.Router({mergeParams: true}),
-	middleware = require("../middleware"),
-	Comment = require("../models/comments"),
-	Image = require("../models/images"),
-	Country = require("../models/countries"),
-	User = require("../models/users");
+const express = require("express"),
+			router = express.Router({mergeParams: true}),
+			middleware = require("../middleware"),
+			Comment = require("../models/comments"),
+			Image = require("../models/images"),
+			Country = require("../models/countries"),
+			User = require("../models/users");
 
 // Route: View post
 router.get("/", (req, res) => {

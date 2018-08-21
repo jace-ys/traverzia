@@ -1,9 +1,9 @@
-var express = require("express"),
-	router = express.Router(),
-	middleware = require("../middleware"),
-	Image = require("../models/images"),
-	Country = require("../models/countries"),
-	User = require("../models/users");
+const express = require("express"),
+		router = express.Router(),
+		middleware = require("../middleware"),
+		Image = require("../models/images"),
+		Country = require("../models/countries"),
+		User = require("../models/users");
 
 // Route: Upload image
 router.get("/", middleware.isLoggedIn, (req, res) => {
@@ -11,7 +11,7 @@ router.get("/", middleware.isLoggedIn, (req, res) => {
 });
 
 router.post("/", middleware.isLoggedIn, (req, res) => {
-	var newImage = req.body;
+	const newImage = req.body;
 	newImage.author = req.user.username;
 	// Create Image
 	Image.create(newImage, (err, image) => {
