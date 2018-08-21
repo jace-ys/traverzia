@@ -1,6 +1,6 @@
 $("#comment-form").on("submit", (event) => {
 	event.preventDefault();
-	var endpoint = $("#comment-form").attr("action");
+	const endpoint = $("#comment-form").attr("action");
 	$.ajax({
         type: "POST",
         url: endpoint,
@@ -9,7 +9,7 @@ $("#comment-form").on("submit", (event) => {
             window.location.href = res.redirect_url;
         },
         error: function(res) {
-            window.location.href = "/error";
+            window.location.href = res.redirect_url;
         }
     });
-})
+});

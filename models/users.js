@@ -1,8 +1,8 @@
-var mongoose = require("mongoose"),
-	passportLocalMongoose = require("passport-local-mongoose"),
-	Country = require("./countries");
+const mongoose = require("mongoose"),
+			passportLocalMongoose = require("passport-local-mongoose"),
+			Country = require("./countries");
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 	username: String,
 	name: String,
 	email: String,

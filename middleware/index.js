@@ -1,8 +1,8 @@
-var Image = require("../models/images"),
-	User = require("../models/users");
+const Image = require("../models/images"),
+			User = require("../models/users");
 
 // Middleware
-var middleware = {};
+let middleware = {};
 
 middleware.isLoggedIn = function(req, res, next) {
 	if(req.isAuthenticated()) {

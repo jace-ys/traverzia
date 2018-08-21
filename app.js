@@ -1,26 +1,26 @@
 // Require dependencies
-var path = require("path"),
-	bodyParser = require("body-parser"),
-	methodOverride = require("method-override"),
-	flash = require("connect-flash"),
-	passport = require("passport"),
-	LocalStrategy = require("passport-local"),
-	passportLocalMongoose = require("passport-local-mongoose"),
-	mongoose = require("mongoose"),
-	express = require("express"),
-	app = express();
+const path = require("path"),
+			bodyParser = require("body-parser"),
+			methodOverride = require("method-override"),
+			flash = require("connect-flash"),
+			passport = require("passport"),
+			LocalStrategy = require("passport-local"),
+			passportLocalMongoose = require("passport-local-mongoose"),
+			mongoose = require("mongoose"),
+			express = require("express"),
+			app = express();
 
 // Require routes
-var routes = require("./routes/route"),
-	userRoutes = require("./routes/user"),
-	uploadRoutes = require("./routes/upload"),
-	imageRoutes = require("./routes/image"),
-	authRoutes = require("./routes/auth"),
-	errorRoutes = require("./routes/error");
+const routes = require("./routes/route"),
+			userRoutes = require("./routes/user"),
+			uploadRoutes = require("./routes/upload"),
+			imageRoutes = require("./routes/image"),
+			authRoutes = require("./routes/auth"),
+			errorRoutes = require("./routes/error");
 
 // Define port
 app.set("port", process.env.PORT || 8080);
-var port = app.get("port");
+const port = app.get("port");
 
 // General setup
 app.set("view engine", "ejs");
@@ -35,11 +35,11 @@ app.use(require("express-session")({
 app.use(flash());
 
 // MongoDB setup
-var mlab_uri = require("./access").access.mlab;
+const mlab_uri = require("./access").access.mlab;
 mongoose.connect(mlab_uri, {useNewUrlParser: true});
 
-// Data Schemas
-var User = require("./models/users");
+// Schemas
+const User = require("./models/users");
 
 // Setup Passport.js
 app.use(passport.initialize());
@@ -48,11 +48,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Response Locals
+// Response locals
 app.use((req, res, next) => {
 	res.locals.loggedIn = req.user;
 	res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
+	res.locals.error = req.flash("error");
 	next();
 });
 
@@ -68,9 +68,9 @@ app.get("*", (req, res) => {
 	res.redirect("/error");
 });
 
-//Error handler
+// Error handler
 app.use((err, req, res, next) => {
-	
+
 });
 
 // Listen

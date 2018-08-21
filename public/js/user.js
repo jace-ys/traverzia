@@ -1,4 +1,4 @@
-var editBio = false;
+let editBio = false;
 
 $("#edit-button").on("click", () => {
 	if(!editBio) {
@@ -16,8 +16,8 @@ $("#edit-button").on("click", () => {
 });
 
 function updateBio(text) {
-	var bio = text;
-	var endpoint = $("#bio textarea").attr("endpoint");
+	const bio = text;
+	const endpoint = $("#bio textarea").attr("endpoint");
 	$.ajax({
 		type: "POST",
 		url: endpoint,

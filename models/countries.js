@@ -1,7 +1,7 @@
-var mongoose = require("mongoose"),
-	Image = require("./images");
+const mongoose = require("mongoose"),
+			Image = require("./images");
 
-var countrySchema = new mongoose.Schema({
+const countrySchema = new mongoose.Schema({
 	name: String,
 	images: [{
 		type: mongoose.Schema.Types.ObjectId,

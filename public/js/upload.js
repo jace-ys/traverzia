@@ -1,11 +1,11 @@
 $("#upload-form").on("submit", (event) => {
 	event.preventDefault();
-	var locationInput = $("#upload-form input[name='image[location]']").val();
-	var parsedInput = locationInput.split(/, /);
-	var location = parsedInput[0];
-	var country = parsedInput[1];
-	var endpoint = $("#upload-form").attr("action");
-	var newImage = {
+	const locationInput = $("#upload-form input[name='image[location]']").val();
+	const parsedInput = locationInput.split(/, /);
+	const location = parsedInput[0];
+	const country = parsedInput[1];
+	const endpoint = $("#upload-form").attr("action");
+	const newImage = {
 		source: $("#upload-form input[name='image[source]']").val(),
 		country: country,
 		location: location,

@@ -1,7 +1,7 @@
-var mongoose = require("mongoose"),
-	Comment = require("./comments");
+const mongoose = require("mongoose"),
+			Comment = require("./comments");
 
-var imageSchema = new mongoose.Schema({
+const imageSchema = new mongoose.Schema({
 	source: String,
 	country: String,
 	location: String,
