@@ -36,6 +36,9 @@ router.get("/discover", (req, res) => {
 	Image.find().limit(15).sort({created: -1}).exec((err, images) => {
 		if(err) {
 			console.log(err);
+		} else if(!images) {
+			req.flash("error", "No content found");
+			res.redirect("/");
 		} else {
 			res.render("discover", {imageData: images});
 		}

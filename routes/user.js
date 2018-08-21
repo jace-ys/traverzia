@@ -10,6 +10,9 @@ router.get("/", (req, res, next) => {
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
+		} else if(!user) {
+			req.flash("error", "User not found");
+			res.redirect("/");
 		} else {
 			// Aggregate latest Image from each country group
 			Image.aggregate([
@@ -44,6 +47,9 @@ router.get("/:country", (req, res) => {
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
+		} else if(!user) {
+			req.flash("error", "User not found");
+			res.redirect("/");
 		} else {
 			// Get all Images from selected country
 			Image.aggregate([

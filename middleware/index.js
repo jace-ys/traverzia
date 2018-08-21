@@ -17,6 +17,9 @@ middleware.checkUser = function(req, res, next) {
 		User.findOne({username: req.params.username}, (err, user) => {
 			if(err) {
 				console.log(err);
+			} else if(!user) {
+				req.flash("error", "User not found");
+				res.redirect("/");
 			} else {
 				if(user.username === req.user.username) {
 					next();
@@ -45,6 +48,9 @@ middleware.checkImagePermissions = function(req, res, next) {
 		Image.findById(req.params.imageID, (err, image) => {
 			if(err) {
 				console.log(err);
+			} else if(!image) {
+				req.flash("error", "Content not found");
+				res.redirect("back");
 			} else {
 				if(image.author === req.user.username) {
 					next();
