@@ -34,8 +34,6 @@ router.post("/update_bio", middleware.checkUser, (req, res) => {
 	User.findByIdAndUpdate(req.user._id, {bio: req.body.bio}, (err, user) => {
 		if(err) {
 			console.log(err);
-			req.flash("error", "Error occured, please try again later.");
-			res.send({updated: false});
 		} else {
 			req.flash("success", "User profile updated!");
 			res.send({updated: true, user: user});

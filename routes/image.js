@@ -11,8 +11,6 @@ router.get("/", (req, res) => {
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
-			req.flash("error", "Error occured, please try again later.");
-			res.redirect("/");
 		} else if(!user) {
 			req.flash("error", "User does not exist.");
 			res.redirect("/");
@@ -24,7 +22,7 @@ router.get("/", (req, res) => {
 					res.redirect("/");
 				} else if(!image) {
 					req.flash("error", "Requested content not found.");
-					res.redirect(`/${req.user.username}`);
+					res.redirect(`/${user.username}`);
 				} else {
 					Comment.find({image: req.params.imageID}).sort({_id: -1}).limit(6).exec((err, comments) => {
 						if(err) {
@@ -49,11 +47,6 @@ router.post("/comment", middleware.allowComment, (req, res) => {
 	Image.findById(req.params.imageID, (err, image) => {
 		if(err) {
 			console.log(err);
-			req.flash("error", "Error occured, please try again later.");
-			res.send({redirect_url: "/"});
-		} else if(!image) {
-			req.flash("error", "Requested content not found.");
-			res.send({redirect_url: "/"});
 		} else {
 			Comment.create(newComment, (err, comment) => {
 				if(err) {
