@@ -11,14 +11,28 @@ router.get("/", (req, res) => {
 	User.findOne({username: req.params.username}, (err, user) => {
 		if(err) {
 			console.log(err);
+			req.flash("error", "Error occured, please try again later.");
+			res.redirect("/");
+		} else if(!user) {
+			req.flash("error", "User does not exist.");
+			res.redirect("/");
 		} else {
 			Image.findById(req.params.imageID, (err, image) => {
 				if(err) {
 					console.log(err);
+					req.flash("error", "Error occured, please try again later.");
+					res.redirect("/");
+				} else if(!image) {
+					req.flash("error", "Requested content not found.");
+					res.redirect(`/${req.user.username}`);
 				} else {
 					Comment.find({image: req.params.imageID}).sort({_id: -1}).limit(6).exec((err, comments) => {
-						res.render("view_image", {user: user, country: req.params.country, image: image, comments: comments});
-					})
+						if(err) {
+							console.log(err);
+						} else {
+							res.render("view_image", {user: user, country: req.params.country, image: image, comments: comments});
+						}
+					});
 				}
 			});
 		}
@@ -27,7 +41,7 @@ router.get("/", (req, res) => {
 
 // Route: Add comment
 router.post("/comment", middleware.allowComment, (req, res) => {
-	var newComment = {
+	const newComment = {
 		text: req.body.text,
 		author: req.user.username,
 		image: req.params.imageID
@@ -35,19 +49,19 @@ router.post("/comment", middleware.allowComment, (req, res) => {
 	Image.findById(req.params.imageID, (err, image) => {
 		if(err) {
 			console.log(err);
+			req.flash("error", "Error occured, please try again later.");
+			res.send({redirect_url: "/"});
+		} else if(!image) {
+			req.flash("error", "Requested content not found.");
+			res.send({redirect_url: "/"});
 		} else {
 			Comment.create(newComment, (err, comment) => {
 				if(err) {
 					console.log(err);
 				} else {
 					image.comments.push(comment);
-					image.save((err) => {
-						if(err) {
-							console.log(err);
-						} else {
-							res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
-						}
-					});
+					image.save();
+					res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
 				}
 			});
 		}
@@ -81,6 +95,7 @@ router.put("/", middleware.checkImagePermissions, (req, res) => {
 	});
 });
 
+// Delete post
 router.delete("/", middleware.checkImagePermissions, (req, res) => {
 	// Find Image
 	Image.findOne({ _id: req.params.imageID}, (err, image) => {

@@ -31,8 +31,7 @@ function updateBio(text) {
     	}
     },
     error: function(res) {
-      console.log(err);
-			window.location.href = "/";
+      console.log(res);
     }
 	});
 }

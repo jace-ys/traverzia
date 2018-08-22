@@ -9,7 +9,7 @@ $("#comment-form").on("submit", (event) => {
         window.location.href = res.redirect_url;
     },
     error: function(res) {
-        window.location.href = res.redirect_url;
+        console.log(res);
     }
   });
 });
