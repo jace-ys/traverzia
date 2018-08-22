@@ -13,8 +13,8 @@ router.post("/signup", (req, res) => {
 	User.register(newUser, req.body.password, (err, user) => {
 		if(err) {
 			console.log(err);
-			req.flash("error", "Error occured while creating account! Please try again.");
-			return res.render("signup");
+			req.flash("error", err.message);
+			return res.redirect("/signup");
 		}
 		passport.authenticate("local", { session: false })(req, res, () => {
 			req.flash("success", "Account created successfully! You can now log in.");

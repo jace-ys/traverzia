@@ -83,12 +83,13 @@ router.put("/", middleware.checkImagePermissions, (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
+			req.flash("success", "Post updated!");
 			res.redirect(`/${req.params.username}/${req.params.country}/${req.params.imageID}`);
 		}
 	});
 });
 
-// Delete post
+// Route: Delete post
 router.delete("/", middleware.checkImagePermissions, (req, res) => {
 	// Find Image
 	Image.findOne({ _id: req.params.imageID}, (err, image) => {
@@ -120,10 +121,12 @@ router.delete("/", middleware.checkImagePermissions, (req, res) => {
 													if(err) {
 														console.log(err);
 													} else {
+														req.flash("success", "Post deleted!");
 														res.redirect(`/${req.user.username}`);
 													}
 												});
 											} else {
+												req.flash("success", "Post deleted!");
 												res.redirect(`/${req.user.username}`);
 											}
 										}

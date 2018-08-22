@@ -17,6 +17,8 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 	Image.create(newImage, (err, image) => {
 		if(err) {
 			console.log(err);
+			req.flash("error", "Failed to upload image, please try again.");
+			res.send({redirect_url: `/${req.user.username}`});
 		} else {
 			// Find/create Country and push Image
 			Country.findOneAndUpdate({name: newImage.country}, {"$push": {images: image}}, {upsert: true, new: true}, (err, country) => {
@@ -28,7 +30,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 						if(err) {
 							console.log(err);
 						} else {
-							req.flash("success", "Image uploaded successfully!");
+							req.flash("success", "Upload successful!");
 							res.send({redirect_url: `/${req.user.username}`});
 						}
 					});
