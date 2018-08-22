@@ -62,3 +62,7 @@ typings/
 
 # access keys
 access.js
+
+# Docker
+Dockerfile
+.dockerignore
