@@ -20,3 +20,8 @@ h2 {
 #signup #login-link:hover {
 	color: #26A69A;
 }
+
+#signup-form i {
+	color: #00CC00;
+	margin-left: 7.5px;
+}

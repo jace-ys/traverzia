@@ -3,14 +3,21 @@ $("input[name='username']").on("focusout", () => {
   validateField(input, "username");
 });
 
+$("input[name='name']").on("focusout", () => {
+
+});
+
 $("input[name='email']").on("focusout", () => {
   let input = $("input[name='email']").val();
   validateField(input, "email");
 });
 
-function validateField(fieldInput, key) {
- console.log(fieldInput);
- $.post({
+$("input[name='password']").on("focusout", () => {
 
- });
+});
+
+function validateField(fieldInput, key) {
+  // $.post(`/signup/validate/${key}`, {input: fieldInput}, (res) => {
+  //   console.log(res);
+  // });
 }

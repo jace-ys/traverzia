@@ -23,6 +23,10 @@ router.post("/signup", (req, res) => {
 	});
 });
 
+router.post("/signup/validate/:field", (req, res) => {
+	console.log(req.body);
+});
+
 // Route: Login
 router.get("/login", (req, res) => {
 	res.render("login");
