@@ -1,46 +1,46 @@
 <% include templates/header %>
 <link href="/stylesheets/css/signup.css" rel="stylesheet" type="text/css">
 
-	<div class="container-fluid" id="signup">
-		<div class="row">
-			<div class="container alert-container text-center">
-				<% if(success && success.length) { %>
-				<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-success" role="alert">
-					<%= success %>
-				</div>
-				<% } %>
-				<% if(error && error.length) { %>
-				<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-danger" role="alert">
-					<%= error %>
-				</div>
-				<% } %>
+	<div class="container">
+		<div class="mx-auto mb-2 text-center" id="signup-header">
+			<% if(success && success.length) { %>
+			<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-success" role="alert">
+				<%= success %>
 			</div>
-			<div class="mx-auto mb-2 text-center">
-				<h2>Create an account</h2>
-				<h6>Have an account? <a href="/login" id="login-link">Login!</a></h6>
+			<% } %>
+			<% if(error && error.length) { %>
+			<div class="col-lg-6 col-xs-8 col-12 mx-auto alert alert-danger" role="alert">
+				<%= error %>
 			</div>
-			<form class="mx-auto col-lg-6 col-sm-8 col-12" action="/signup" method="POST" id="signup-form">
-				<div class="form-group">
-					<label for="username">Username</label><i class="fa" id="check-username"></i>
-					<input class="form-control" type="text" name="username" placeholder="Username" oninvalid="this.setCustomValidity('Please enter a username.')" oninput="this.setCustomValidity('')" required>
-				</div>
-				<div class="form-group">
-					<label for="name">Name</label><i class="fa" id="check-name"></i>
-					<input class="form-control" type="text" name="name" placeholder="Name" oninvalid="this.setCustomValidity('Please enter your name.')" oninput="this.setCustomValidity('')"  required>
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label><i class="fa" id="check-email"></i>
-					<input class="form-control" type="email" name="email" placeholder="Email" oninvalid="this.setCustomValidity('Please enter a valid email.')" oninput="this.setCustomValidity('')" required>
-				</div>
-				<div class="form-group">
-					<label for="password">Password</label><i class="fa" id="check-password"></i>
-					<input class="form-control" type="password" name="password" placeholder="Password" pattern=".{8,16}" oninvalid="this.setCustomValidity('Please enter a password 8-16 characters long.')" oninput="this.setCustomValidity('')" required>
-				</div>
-				<div class="text-center">
-					<button type="submit" class="btn btn-outline-primary btn-lg">Sign up!</i></button>
-				</div>
-			</form>
+			<% } %>
+			<h2>Create an account</h2>
+			<h6>Have an account? <a href="/login" id="login-link">Login!</a></h6>
 		</div>
+		<form class="mx-auto col-lg-6 col-sm-8 col-12" action="/signup" method="POST" id="signup-form" novalidate>
+			<div class="form-group" id="usernameField">
+				<label for="username">Username</label>
+				<input class="form-control" type="text" name="username" placeholder="Username">
+				<div class="invalid-feedback"></div>
+			</div>
+			<div class="form-group" id="nameField">
+				<label for="name">Name</label>
+				<input class="form-control" type="text" name="name" placeholder="Name">
+				<div class="invalid-feedback"></div>
+			</div>
+			<div class="form-group" id="emailField">
+				<label for="email">Email</label>
+				<input class="form-control" type="email" name="email" placeholder="Email">
+				<div class="invalid-feedback"></div>
+			</div>
+			<div class="form-group" id="passwordField">
+				<label for="password">Password</label>
+				<input class="form-control" type="password" name="password" placeholder="Password" pattern=".{8,16}">
+				<div class="invalid-feedback"></div>
+			</div>
+			<div class="text-center mb-4">
+				<button type="submit" class="btn btn-outline-primary btn-lg">Sign up!</i></button>
+			</div>
+		</form>
 	</div>
 
 <% include templates/scripts %>

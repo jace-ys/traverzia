@@ -1,27 +1,28 @@
 h2 {
 	font-size: 2.5em;
-	margin-top: 72px;
 }
 
-.alert-container {
-	margin-top: 72px;
-	position: absolute;
-	margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-}
-
-#signup h6 {
+h6 {
 	font-weight: 400;
 	color: #000000;
 }
 
-#signup #login-link:hover {
-	color: #26A69A;
+.form-group {
+	margin-bottom: 0.6em;
 }
 
-#signup-form i {
-	color: #00CC00;
-	margin-left: 7.5px;
+.form-group div {
+	margin-left: 10px;
+}
+
+.form-group:nth-of-type(4) {
+	margin-bottom: 25px;
+}
+
+#signup-header {
+	margin-top: 92px;
+}
+
+#signup-header #login-link:hover {
+	color: #26A69A;
 }
