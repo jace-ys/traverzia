@@ -16,16 +16,18 @@
 			<div class="mx-auto mb-4 text-center">
 				<h2>Share your travels!</h2>
 			</div>
-			<form class="mx-auto col-lg-6 col-sm-8 col-12" action="/upload" method="POST" id="upload-form">
-				<div class="form-group">
+			<form class="mx-auto col-lg-6 col-sm-8 col-12" action="/upload" method="POST" id="upload-form" novalidate>
+				<div class="form-group" id="source-field">
 					<label for="image[source]">Image Source</label>
-					<input class="form-control" type="url" name="image[source]" placeholder="Image URL" oninvalid="this.setCustomValidity('Please upload an image.')" oninput="this.setCustomValidity('')" required>
+					<input class="form-control" type="url" name="image[source]" placeholder="Image URL" required>
+					<div class="invalid-feedback">Please upload an image.</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" id="location-field">
 					<label for="image[location]">Location</label>
-					<input class="form-control" type="text" name="image[location]" placeholder="Format: location, country" pattern="^[a-zA-Z ]*, [a-zA-Z ]*$" oninvalid="this.setCustomValidity('Format: location, country')" oninput="this.setCustomValidity('')" required>
+					<input class="form-control" type="text" name="image[location]" placeholder="Format: location, country" pattern="^[a-zA-Z ]*, [a-zA-Z ]*$" required>
+					<div class="invalid-feedback">Please enter a valid location.</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" id="caption-field">
 					<label for="image[caption]">Caption</label>
 					<textarea class="form-control" type="text" name="image[caption]" rows="3" placeholder="Caption"></textarea>
 				</div>

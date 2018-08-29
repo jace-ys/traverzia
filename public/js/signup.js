@@ -1,12 +1,12 @@
 let signupForm = $("#signup-form"),
-    usernameField = signupForm.find("input[name='username']"),
-    usernameFeedback = signupForm.find("#usernameField div"),
-    nameField = signupForm.find("input[name='name']"),
-    nameFeedback = signupForm.find("#nameField div"),
-    emailField = signupForm.find("input[name='email']"),
-    emailFeedback = signupForm.find("#emailField div"),
-    passwordField = signupForm.find("input[name='password']"),
-    passwordFeedback = signupForm.find("#passwordField div");
+    usernameField = signupForm.find("#username-field input"),
+    usernameFeedback = signupForm.find("#username-field div"),
+    nameField = signupForm.find("#name-field input"),
+    nameFeedback = signupForm.find("#name-field div"),
+    emailField = signupForm.find("#email-field input"),
+    emailFeedback = signupForm.find("#email-field div"),
+    passwordField = signupForm.find("#password-field input"),
+    passwordFeedback = signupForm.find("#password-field div");
 
 signupForm.on('submit', function(event) {
   if (!signupForm[0].checkValidity()) {
