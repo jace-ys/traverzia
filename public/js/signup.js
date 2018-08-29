@@ -1,27 +1,42 @@
-let usernameField = $("input[name='username']"),
-    usernameFeedback = $("#usernameField div"),
-    nameField = $("input[name='name']"),
-    nameFeedback = $("#nameField div"),
-    emailField = $("input[name='email']"),
-    emailFeedback = $("#emailField div"),
-    passwordField = $("input[name='password']"),
-    passwordFeedback = $("#passwordField div");
+let signupForm = $("#signup-form"),
+    usernameField = signupForm.find("input[name='username']"),
+    usernameFeedback = signupForm.find("#usernameField div"),
+    nameField = signupForm.find("input[name='name']"),
+    nameFeedback = signupForm.find("#nameField div"),
+    emailField = signupForm.find("input[name='email']"),
+    emailFeedback = signupForm.find("#emailField div"),
+    passwordField = signupForm.find("input[name='password']"),
+    passwordFeedback = signupForm.find("#passwordField div");
+
+signupForm.on('submit', function(event) {
+  if (!signupForm[0].checkValidity()) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  signupForm.addClass('was-validated');
+});
 
 usernameField.on('blur', () => {
-  if(usernameField.val() === "") {
+  if(usernameField[0].validity.valueMissing) {
     setInvalid(usernameField, usernameFeedback);
     usernameFeedback.text("Please enter a username.");
-  } else if (!validateField(usernameField.val(), "username")) {
-    setInvalid(usernameField, usernameFeedback);
-    usernameFeedback.text("That username is not available.");
   } else {
-    setValid(usernameField, usernameFeedback);
-    usernameFeedback.text("");
+    validateField(usernameField.val(), "username").then((valid) => {
+      if(!valid) {
+        setInvalid(usernameField, usernameFeedback);
+        usernameFeedback.text("That username is not available.");
+        usernameField[0].setCustomValidity("That username is not available.");
+      } else {
+        setValid(usernameField, usernameFeedback);
+        usernameFeedback.text("");
+        usernameField[0].setCustomValidity("");
+      }
+    });
   }
 });
 
 nameField.on('blur', () => {
-  if(nameField.val() === "") {
+  if(nameField[0].validity.valueMissing) {
     setInvalid(nameField, nameFeedback);
     nameFeedback.text("Please enter your name.");
   } else {
@@ -31,22 +46,34 @@ nameField.on('blur', () => {
 });
 
 emailField.on('blur', () => {
-  if(emailField.val() === "") {
+  if(emailField[0].validity.valueMissing) {
+    setInvalid(emailField, emailFeedback);
+    emailFeedback.text("Please enter your email.");
+  } else if (emailField[0].validity.typeMismatch) {
     setInvalid(emailField, emailFeedback);
     emailFeedback.text("Please enter a valid email.");
-  } else if (!validateField(emailField.val(), "email")) {
-    setInvalid(emailField, emailFeedback);
-    emailFeedback.text("An account belonging to that email already exists");
   } else {
-    setValid(emailField, emailFeedback);
-    emailFeedback.text("");
+    validateField(emailField.val(), "email").then((valid) => {
+      if(!valid) {
+        setInvalid(emailField, emailFeedback);
+        emailFeedback.text("An account belonging to that email already exists.");
+        emailField[0].setCustomValidity("An account belonging to that email already exists.");
+      } else {
+        setValid(emailField, emailFeedback);
+        emailFeedback.text("");
+        emailField[0].setCustomValidity("");
+      }
+    });
   }
 });
 
 passwordField.on('blur', () => {
-  if(passwordField.val() === "") {
+  if(passwordField[0].validity.valueMissing) {
     setInvalid(passwordField, passwordFeedback);
     passwordFeedback.text("Please enter a password.");
+  } else if(passwordField[0].validity.patternMismatch) {
+    setInvalid(passwordField, passwordFeedback);
+    passwordFeedback.text("Please enter a valid password.");
   } else {
     setValid(passwordField, passwordFeedback);
     passwordFeedback.text("");
@@ -68,5 +95,15 @@ function setValid(field, feedback) {
 }
 
 function validateField(fieldInput, key) {
-  return false;
-}
+  return fetch(`/signup/validate/${key}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({"input": fieldInput})
+  }).then((res) => {
+    return res.json();
+  }).then((json) => {
+    return json.validated;
+  }).catch((err) => {
+    console.log(err);
+  });
+};

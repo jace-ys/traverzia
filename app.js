@@ -11,7 +11,7 @@ const path = require("path"),
 			app = express();
 
 // Require routes
-const routes = require("./routes/route"),
+const mainRoutes = require("./routes/main"),
 			userRoutes = require("./routes/user"),
 			uploadRoutes = require("./routes/upload"),
 			imageRoutes = require("./routes/image"),
@@ -26,6 +26,7 @@ const port = app.get("port");
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 app.use(require("express-session")({
 	secret: "Discover Traverzia's secret",
@@ -59,7 +60,7 @@ app.use((req, res, next) => {
 // Routes
 app.use(errorRoutes);
 app.use(authRoutes);
-app.use(routes);
+app.use(mainRoutes);
 app.use("/upload", uploadRoutes);
 app.use("/:username", userRoutes);
 app.use("/:username/:country/:imageID", imageRoutes);

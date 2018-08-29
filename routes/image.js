@@ -44,21 +44,23 @@ router.post("/comment", middleware.allowComment, (req, res) => {
 		author: req.user.username,
 		image: req.params.imageID
 	}
-	Image.findById(req.params.imageID, (err, image) => {
-		if(err) {
-			console.log(err);
-		} else {
-			Comment.create(newComment, (err, comment) => {
-				if(err) {
-					console.log(err);
-				} else {
-					image.comments.push(comment);
-					image.save();
-					res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
-				}
-			});
-		}
-	});
+	if(newComment.text) {
+		Image.findById(req.params.imageID, (err, image) => {
+			if(err) {
+				console.log(err);
+			} else {
+				Comment.create(newComment, (err, comment) => {
+					if(err) {
+						console.log(err);
+					} else {
+						image.comments.push(comment);
+						image.save();
+						res.send({redirect_url: `/${req.params.username}/${image.country}/${req.params.imageID}`});
+					}
+				});
+			}
+		});
+	}
 });
 
 // Route: Edit post

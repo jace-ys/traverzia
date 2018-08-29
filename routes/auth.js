@@ -23,8 +23,32 @@ router.post("/signup", (req, res) => {
 	});
 });
 
-router.post("/signup/validate/:field", (req, res) => {
-	console.log(req.body);
+// Route: Validate username
+router.post("/signup/validate/username", (req, res) => {
+	const query = new RegExp(req.body.input, "i");
+	User.findOne({username: query}, (err, user) => {
+		if(err) {
+			console.log(err);
+		} else if(!user) {
+			res.send({validated: true});
+		} else {
+			res.send({validated: false});
+		}
+	});
+});
+
+// Route: Validate email
+router.post("/signup/validate/email", (req, res) => {
+	const query = new RegExp(req.body.input, "i");
+	User.findOne({email: query}, (err, user) => {
+		if(err) {
+			console.log(err);
+		} else if(!user) {
+			res.send({validated: true});
+		} else {
+			res.send({validated: false});
+		}
+	});
 });
 
 // Route: Login
