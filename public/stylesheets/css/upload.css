@@ -2,3 +2,14 @@ h2 {
 	font-size: 2.5em;
 	margin-top: 60px;
 }
+
+.custom-file label {
+	border-color: #00796B;
+}
+
+.custom-file label::after {
+	border: none;
+	border-radius: 0;
+	background-color: #00796B;
+	color: #FFFFFF;
+}

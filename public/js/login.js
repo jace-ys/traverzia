@@ -5,11 +5,11 @@ let loginForm = $("#login-form"),
     passwordFeedback = loginForm.find("#password-field div");
 
 loginForm.on('submit', function(event) {
+  loginForm.addClass('was-validated');
   if (!loginForm[0].checkValidity()) {
     event.preventDefault();
     event.stopPropagation();
   }
-  loginForm.addClass('was-validated');
 });
 
 usernameField.on('blur', () => {

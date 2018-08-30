@@ -9,11 +9,11 @@ let signupForm = $("#signup-form"),
     passwordFeedback = signupForm.find("#password-field div");
 
 signupForm.on('submit', function(event) {
+  signupForm.addClass('was-validated');
   if (!signupForm[0].checkValidity()) {
     event.preventDefault();
     event.stopPropagation();
   }
-  signupForm.addClass('was-validated');
 });
 
 usernameField.on('blur', () => {
