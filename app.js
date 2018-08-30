@@ -1,5 +1,6 @@
 // Require dependencies
-const path = require("path"),
+const dotenv = require('dotenv').config(),
+			path = require("path"),
 			bodyParser = require("body-parser"),
 			methodOverride = require("method-override"),
 			flash = require("connect-flash"),

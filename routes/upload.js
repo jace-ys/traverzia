@@ -16,7 +16,7 @@ let storage = multer.diskStorage({
 
 let imageFilter = (req, file, callback) => {
     // Accept image files only
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/i)) {
+    if(!file.originalname.match(/\.(jpg|jpeg|png)$/i)) {
         return callback(new Error('Only image files are allowed!'), false);
     }
     callback(null, true);
@@ -37,7 +37,7 @@ router.get("/", middleware.isLoggedIn, (req, res) => {
 });
 
 router.post("/", middleware.isLoggedIn, upload.single("image"), (req, res) => {
-	const locationInput = req.body.location;
+	const locationInput = req.body.image.location;
 	const parsedInput = locationInput.split(/, /);
 	const location = parsedInput[0];
 	const country = parsedInput[1];
@@ -45,7 +45,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), (req, res) => {
 		source: `/uploads/${req.file.filename}`,
 		country: country,
 		location: location,
-		caption: req.body.caption,
+		caption: req.body.image.caption,
 		author: req.user.username
 	};
 	//Create Image

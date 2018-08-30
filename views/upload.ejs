@@ -27,12 +27,12 @@
 				</div>
 				<div class="form-group" id="location-field">
 					<label for="image[location]">Location</label>
-					<input class="form-control" type="text" name="location" placeholder="Format: location, country" pattern="^[a-zA-Z ]*, [a-zA-Z ]*$" oninvalid="this.setCustomValidity('Please enter a valid location.')" oninput="this.setCustomValidity('')" required>
+					<input class="form-control" type="text" name="image[location]" placeholder="Format: location, country" pattern="^[a-zA-Z ]*, [a-zA-Z ]*$" oninvalid="this.setCustomValidity('Please enter a valid location.')" oninput="this.setCustomValidity('')" required>
 					<div class="invalid-feedback">Please enter a valid location.</div>
 				</div>
 				<div class="form-group" id="caption-field">
 					<label for="image[caption]">Caption</label>
-					<textarea class="form-control" type="text" name="caption" rows="3" placeholder="Caption"></textarea>
+					<textarea class="form-control" type="text" name="image[caption]" rows="3" placeholder="Caption"></textarea>
 				</div>
 				<div class="text-center">
 					<button type="submit" class="btn btn-outline-primary btn-lg">Upload <i class="fa fa-upload"></i></button>
