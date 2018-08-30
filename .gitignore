@@ -61,7 +61,7 @@ typings/
 .next
 
 # access keys
-access.js
+access.txt
 
 # Docker
 Dockerfile

@@ -36,7 +36,7 @@ app.use(require("express-session")({
 app.use(flash());
 
 // MongoDB setup
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
+mongoose.connect(process.env.MLAB_URI, {useNewUrlParser: true});
 
 // Schemas
 const User = require("./models/users");
