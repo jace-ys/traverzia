@@ -89,7 +89,13 @@ router.get("/edit", middleware.checkImagePermissions, (req, res) => {
 });
 
 router.put("/", middleware.checkImagePermissions, (req, res) => {
-	Image.findByIdAndUpdate(req.params.imageID, req.body.image, (err, upload) => {
+	const parsedLocation = req.body.image.location.split(/, /);
+	updateImage = {
+		country: parsedLocation[1],
+		location: parsedLocation[0],
+		caption: req.body.image.caption
+	}
+	Image.findByIdAndUpdate(req.params.imageID, updateImage, (err, upload) => {
 		if(err) {
 			console.log(err);
 		} else {

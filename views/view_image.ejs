@@ -7,7 +7,7 @@
 				<img class="img-fluid" src="<%= image.source %>">
 			</div>
 			<div class="col-lg-8 col-12" id="text-panel">
-				<div class="container text-center">
+				<div class="alert-container container text-center">
 					<% if(success && success.length) { %>
 	        <div class="col-12 mx-auto alert alert-success" role="alert">
             <%= success %>
@@ -26,7 +26,7 @@
 					<a href="/<%= user.username %>/<%= country %>" title="Return"><i class="fa fa-arrow-alt-circle-left"></i></a>
 				</div>
 				<div class="text-center">
-					<h6><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<%= image.location %></h6>
+					<h6><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;<a id="location-tag" href="https://maps.google.com/?q=<%= image.location + ' ' + image.country %>"><%= image.location %></a></h6>
 					<p>Caption: <%= image.caption %></p>
 					<p>Posted on: <%= image.created.toDateString().slice(4,15) %> by <a href="/<%= user.username %>" id="posted-by"><%= user.username %></a></p>
 				</div>

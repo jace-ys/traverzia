@@ -33,7 +33,7 @@
 	margin: 0 5px;
 }
 
-#image #text-panel .fa-edit:hover, #image #text-panel .fa-arrow-alt-circle-left:hover {
+.fa-edit:hover, .fa-arrow-alt-circle-left:hover {
 	color: #00796B;
 }
 
@@ -55,8 +55,16 @@
 	color: #26A69A;
 }
 
+.fa-map-marker-alt, #location-tag {
+	color: #000000;
+}
+
 #comments-section {
 	padding-top: 20px;
+}
+
+#comments-section h6 {
+	color: #26A69A;
 }
 
 #comments-section .fa-edit {

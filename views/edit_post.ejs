@@ -19,7 +19,7 @@
 				<form action="/<%= user.username %>/<%= country %>/<%= image._id %>?_method=PUT" method="POST" class="mx-auto col-12" id="edit-form">
 					<div class="form-group">
 						<label for="image[location]">Location</label>
-						<input class="form-control" type="text" name="image[location]" value="<%= image.location %>">
+						<input class="form-control" type="text" name="image[location]" value="<%= image.location  + ', ' + image.country %>">
 					</div>
 					<div class="form-group">
 						<label for="image[caption]">Caption</label>
