@@ -1,10 +1,18 @@
 const express = require("express"),
 			router = express.Router({mergeParams: true}),
+			cloudinary = require("cloudinary"),
 			middleware = require("../middleware"),
 			Comment = require("../models/comments"),
 			Image = require("../models/images"),
 			Country = require("../models/countries"),
 			User = require("../models/users");
+
+// Config: Cloudinary
+cloudinary.config({
+  cloud_name: 'traverzia',
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Route: View post
 router.get("/", (req, res) => {
@@ -109,10 +117,11 @@ router.delete("/", middleware.checkImagePermissions, (req, res) => {
 							console.log(err)
 						} else {
 							// Check if User has no other Images of that Country
-							Image.find({author: req.user.username, country: req.params.country}, (err, images) => {
+							Image.find({author: req.user.username, country: req.params.country}, async (err, images) => {
 								if(err) {
 									console.log(err);
-								} else {
+								} try {
+									await cloudinary.v2.uploader.destroy(image.imageID);
 									Image.findByIdAndRemove(req.params.imageID, (err) => {
 										if(err) {
 											console.log(err);
@@ -133,6 +142,12 @@ router.delete("/", middleware.checkImagePermissions, (req, res) => {
 											}
 										}
 									});
+								} catch(err) {
+									if(err) {
+										console.log(err);
+										req.flash("error", "Error occured, please try again later.");
+										res.redirect("back");
+									}
 								}
 							});
 						}

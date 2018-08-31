@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 // Route: Search
 router.get("/search", (req, res) => {
-	const search = new RegExp(req.query.query, "i");
+	const search = new RegExp(`^${req.query.query}$`, "i");
 	User.findOne({username: search}, (err, user) => {
 		if(err) {
 			console.log(err);

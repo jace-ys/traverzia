@@ -3,6 +3,7 @@ const mongoose = require("mongoose"),
 
 const imageSchema = new mongoose.Schema({
 	source: String,
+	imageID: String,
 	country: String,
 	location: String,
 	caption: String,
