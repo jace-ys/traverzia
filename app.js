@@ -76,5 +76,5 @@ app.use((err, req, res, next) => {
 
 // Listen
 app.listen(port, () => {
-	console.log(`Server listening on port ${port}`);
+	console.log(`Traverzia server listening on port ${port}`);
 });
