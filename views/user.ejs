@@ -17,7 +17,7 @@
 		<% if(loggedIn && user.username === loggedIn.username) { %><a href="#" id="edit-button"><i class="fa fa-edit"></i></a><% } %>
 		<div class="mx-auto text-center" id="user-meta">
 			<h3><%= user.username %></h3>
-			<span id="bio"><textarea endpoint="/<%= user.username %>/update_bio" class="form-control col-md-6 col-9" rows="1" type="text" name="bio"><%= user.bio %></textarea><h6><%= user.bio %></h6></span>
+			<span id="bio"><textarea endpoint="/<%= user.username %>/update_bio" class="form-control col-md-6 col-9" rows="3" type="text" name="bio"><%= user.bio %></textarea><h6><%= user.bio %></h6></span>
 		</div>
 	</div>
 	<div class="container mt-4 mb-4">
