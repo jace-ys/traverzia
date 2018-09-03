@@ -69,11 +69,6 @@ app.get("*", (req, res) => {
 	res.redirect("/error");
 });
 
-// Error handler
-app.use((err, req, res, next) => {
-
-});
-
 // Listen
 app.listen(port, () => {
 	console.log(`Traverzia server listening on port ${port}`);
